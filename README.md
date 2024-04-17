@@ -409,27 +409,30 @@ terms category:
 <summary>Code</summary>
 
 ``` r
-gt::gt(atp_general_search[["hpo_general_terms"]])
+atp_general_search[["hpo_general_terms"]] |>
+  gt::gt() |>
+  gt::fmt_markdown(columns = everything()) |>
+  gt::tab_options(table.width = gt::px(400))
 ```
 
 </details>
-<div id="lbhihumscm" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#lbhihumscm table {
+<div id="jngtgjwpyh" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#jngtgjwpyh table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#lbhihumscm thead, #lbhihumscm tbody, #lbhihumscm tfoot, #lbhihumscm tr, #lbhihumscm td, #lbhihumscm th {
+#jngtgjwpyh thead, #jngtgjwpyh tbody, #jngtgjwpyh tfoot, #jngtgjwpyh tr, #jngtgjwpyh td, #jngtgjwpyh th {
   border-style: none;
 }
 
-#lbhihumscm p {
+#jngtgjwpyh p {
   margin: 0;
   padding: 0;
 }
 
-#lbhihumscm .gt_table {
+#jngtgjwpyh .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -440,7 +443,7 @@ gt::gt(atp_general_search[["hpo_general_terms"]])
   font-weight: normal;
   font-style: normal;
   background-color: #FFFFFF;
-  width: auto;
+  width: 400px;
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #A8A8A8;
@@ -455,12 +458,12 @@ gt::gt(atp_general_search[["hpo_general_terms"]])
   border-left-color: #D3D3D3;
 }
 
-#lbhihumscm .gt_caption {
+#jngtgjwpyh .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#lbhihumscm .gt_title {
+#jngtgjwpyh .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -472,7 +475,7 @@ gt::gt(atp_general_search[["hpo_general_terms"]])
   border-bottom-width: 0;
 }
 
-#lbhihumscm .gt_subtitle {
+#jngtgjwpyh .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -484,7 +487,7 @@ gt::gt(atp_general_search[["hpo_general_terms"]])
   border-top-width: 0;
 }
 
-#lbhihumscm .gt_heading {
+#jngtgjwpyh .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -496,13 +499,13 @@ gt::gt(atp_general_search[["hpo_general_terms"]])
   border-right-color: #D3D3D3;
 }
 
-#lbhihumscm .gt_bottom_border {
+#jngtgjwpyh .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#lbhihumscm .gt_col_headings {
+#jngtgjwpyh .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -517,7 +520,7 @@ gt::gt(atp_general_search[["hpo_general_terms"]])
   border-right-color: #D3D3D3;
 }
 
-#lbhihumscm .gt_col_heading {
+#jngtgjwpyh .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -537,7 +540,7 @@ gt::gt(atp_general_search[["hpo_general_terms"]])
   overflow-x: hidden;
 }
 
-#lbhihumscm .gt_column_spanner_outer {
+#jngtgjwpyh .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -549,15 +552,15 @@ gt::gt(atp_general_search[["hpo_general_terms"]])
   padding-right: 4px;
 }
 
-#lbhihumscm .gt_column_spanner_outer:first-child {
+#jngtgjwpyh .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#lbhihumscm .gt_column_spanner_outer:last-child {
+#jngtgjwpyh .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#lbhihumscm .gt_column_spanner {
+#jngtgjwpyh .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -569,11 +572,11 @@ gt::gt(atp_general_search[["hpo_general_terms"]])
   width: 100%;
 }
 
-#lbhihumscm .gt_spanner_row {
+#jngtgjwpyh .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#lbhihumscm .gt_group_heading {
+#jngtgjwpyh .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -599,7 +602,7 @@ gt::gt(atp_general_search[["hpo_general_terms"]])
   text-align: left;
 }
 
-#lbhihumscm .gt_empty_group_heading {
+#jngtgjwpyh .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -614,15 +617,15 @@ gt::gt(atp_general_search[["hpo_general_terms"]])
   vertical-align: middle;
 }
 
-#lbhihumscm .gt_from_md > :first-child {
+#jngtgjwpyh .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#lbhihumscm .gt_from_md > :last-child {
+#jngtgjwpyh .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#lbhihumscm .gt_row {
+#jngtgjwpyh .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -641,7 +644,7 @@ gt::gt(atp_general_search[["hpo_general_terms"]])
   overflow-x: hidden;
 }
 
-#lbhihumscm .gt_stub {
+#jngtgjwpyh .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -654,7 +657,7 @@ gt::gt(atp_general_search[["hpo_general_terms"]])
   padding-right: 5px;
 }
 
-#lbhihumscm .gt_stub_row_group {
+#jngtgjwpyh .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -668,15 +671,15 @@ gt::gt(atp_general_search[["hpo_general_terms"]])
   vertical-align: top;
 }
 
-#lbhihumscm .gt_row_group_first td {
+#jngtgjwpyh .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#lbhihumscm .gt_row_group_first th {
+#jngtgjwpyh .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#lbhihumscm .gt_summary_row {
+#jngtgjwpyh .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -686,16 +689,16 @@ gt::gt(atp_general_search[["hpo_general_terms"]])
   padding-right: 5px;
 }
 
-#lbhihumscm .gt_first_summary_row {
+#jngtgjwpyh .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#lbhihumscm .gt_first_summary_row.thick {
+#jngtgjwpyh .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#lbhihumscm .gt_last_summary_row {
+#jngtgjwpyh .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -705,7 +708,7 @@ gt::gt(atp_general_search[["hpo_general_terms"]])
   border-bottom-color: #D3D3D3;
 }
 
-#lbhihumscm .gt_grand_summary_row {
+#jngtgjwpyh .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -715,7 +718,7 @@ gt::gt(atp_general_search[["hpo_general_terms"]])
   padding-right: 5px;
 }
 
-#lbhihumscm .gt_first_grand_summary_row {
+#jngtgjwpyh .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -725,7 +728,7 @@ gt::gt(atp_general_search[["hpo_general_terms"]])
   border-top-color: #D3D3D3;
 }
 
-#lbhihumscm .gt_last_grand_summary_row_top {
+#jngtgjwpyh .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -735,11 +738,11 @@ gt::gt(atp_general_search[["hpo_general_terms"]])
   border-bottom-color: #D3D3D3;
 }
 
-#lbhihumscm .gt_striped {
+#jngtgjwpyh .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#lbhihumscm .gt_table_body {
+#jngtgjwpyh .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -748,7 +751,7 @@ gt::gt(atp_general_search[["hpo_general_terms"]])
   border-bottom-color: #D3D3D3;
 }
 
-#lbhihumscm .gt_footnotes {
+#jngtgjwpyh .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -762,7 +765,7 @@ gt::gt(atp_general_search[["hpo_general_terms"]])
   border-right-color: #D3D3D3;
 }
 
-#lbhihumscm .gt_footnote {
+#jngtgjwpyh .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -771,7 +774,7 @@ gt::gt(atp_general_search[["hpo_general_terms"]])
   padding-right: 5px;
 }
 
-#lbhihumscm .gt_sourcenotes {
+#jngtgjwpyh .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -785,7 +788,7 @@ gt::gt(atp_general_search[["hpo_general_terms"]])
   border-right-color: #D3D3D3;
 }
 
-#lbhihumscm .gt_sourcenote {
+#jngtgjwpyh .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -793,63 +796,63 @@ gt::gt(atp_general_search[["hpo_general_terms"]])
   padding-right: 5px;
 }
 
-#lbhihumscm .gt_left {
+#jngtgjwpyh .gt_left {
   text-align: left;
 }
 
-#lbhihumscm .gt_center {
+#jngtgjwpyh .gt_center {
   text-align: center;
 }
 
-#lbhihumscm .gt_right {
+#jngtgjwpyh .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#lbhihumscm .gt_font_normal {
+#jngtgjwpyh .gt_font_normal {
   font-weight: normal;
 }
 
-#lbhihumscm .gt_font_bold {
+#jngtgjwpyh .gt_font_bold {
   font-weight: bold;
 }
 
-#lbhihumscm .gt_font_italic {
+#jngtgjwpyh .gt_font_italic {
   font-style: italic;
 }
 
-#lbhihumscm .gt_super {
+#jngtgjwpyh .gt_super {
   font-size: 65%;
 }
 
-#lbhihumscm .gt_footnote_marks {
+#jngtgjwpyh .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#lbhihumscm .gt_asterisk {
+#jngtgjwpyh .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#lbhihumscm .gt_indent_1 {
+#jngtgjwpyh .gt_indent_1 {
   text-indent: 5px;
 }
 
-#lbhihumscm .gt_indent_2 {
+#jngtgjwpyh .gt_indent_2 {
   text-indent: 10px;
 }
 
-#lbhihumscm .gt_indent_3 {
+#jngtgjwpyh .gt_indent_3 {
   text-indent: 15px;
 }
 
-#lbhihumscm .gt_indent_4 {
+#jngtgjwpyh .gt_indent_4 {
   text-indent: 20px;
 }
 
-#lbhihumscm .gt_indent_5 {
+#jngtgjwpyh .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -864,25 +867,42 @@ gt::gt(atp_general_search[["hpo_general_terms"]])
     </tr>
   </thead>
   <tbody class="gt_table_body">
-    <tr><td headers="name" class="gt_row gt_left">Elevated erythrocyte adenosine triphosphate concentration</td>
-<td headers="id" class="gt_row gt_left">HP:4000186</td>
-<td headers="childrenCount" class="gt_row gt_right">0</td>
-<td headers="ontologyId" class="gt_row gt_left">HP:4000186</td>
-<td headers="synonym" class="gt_row gt_left">Adenosine triphosphate (ATP) high in erythrocytes</td></tr>
-    <tr><td headers="name" class="gt_row gt_left">Decreased activity of mitochondrial ATP synthase complex</td>
-<td headers="id" class="gt_row gt_left">HP:0011925</td>
-<td headers="childrenCount" class="gt_row gt_right">0</td>
-<td headers="ontologyId" class="gt_row gt_left">HP:0011925</td>
+    <tr><td headers="name" class="gt_row gt_left"><div data-qmd="Elevated erythrocyte adenosine triphosphate concentration"><div class='gt_from_md'><p>Elevated erythrocyte adenosine triphosphate concentration</p>
+</div></div></td>
+<td headers="id" class="gt_row gt_left"><div data-qmd="HP:4000186"><div class='gt_from_md'><p>HP:4000186</p>
+</div></div></td>
+<td headers="childrenCount" class="gt_row gt_right"><div data-qmd="0"><div class='gt_from_md'><p>0</p>
+</div></div></td>
+<td headers="ontologyId" class="gt_row gt_left"><div data-qmd="HP:4000186"><div class='gt_from_md'><p>HP:4000186</p>
+</div></div></td>
+<td headers="synonym" class="gt_row gt_left"><div data-qmd="Adenosine triphosphate (ATP) high in erythrocytes"><div class='gt_from_md'><p>Adenosine triphosphate (ATP) high in erythrocytes</p>
+</div></div></td></tr>
+    <tr><td headers="name" class="gt_row gt_left"><div data-qmd="Decreased activity of mitochondrial ATP synthase complex"><div class='gt_from_md'><p>Decreased activity of mitochondrial ATP synthase complex</p>
+</div></div></td>
+<td headers="id" class="gt_row gt_left"><div data-qmd="HP:0011925"><div class='gt_from_md'><p>HP:0011925</p>
+</div></div></td>
+<td headers="childrenCount" class="gt_row gt_right"><div data-qmd="0"><div class='gt_from_md'><p>0</p>
+</div></div></td>
+<td headers="ontologyId" class="gt_row gt_left"><div data-qmd="HP:0011925"><div class='gt_from_md'><p>HP:0011925</p>
+</div></div></td>
 <td headers="synonym" class="gt_row gt_left">NA</td></tr>
-    <tr><td headers="name" class="gt_row gt_left">Abnormal platelet dense granule ATP/ADP ratio</td>
-<td headers="id" class="gt_row gt_left">HP:0030401</td>
-<td headers="childrenCount" class="gt_row gt_right">0</td>
-<td headers="ontologyId" class="gt_row gt_left">HP:0030401</td>
+    <tr><td headers="name" class="gt_row gt_left"><div data-qmd="Abnormal platelet dense granule ATP/ADP ratio"><div class='gt_from_md'><p>Abnormal platelet dense granule ATP/ADP ratio</p>
+</div></div></td>
+<td headers="id" class="gt_row gt_left"><div data-qmd="HP:0030401"><div class='gt_from_md'><p>HP:0030401</p>
+</div></div></td>
+<td headers="childrenCount" class="gt_row gt_right"><div data-qmd="0"><div class='gt_from_md'><p>0</p>
+</div></div></td>
+<td headers="ontologyId" class="gt_row gt_left"><div data-qmd="HP:0030401"><div class='gt_from_md'><p>HP:0030401</p>
+</div></div></td>
 <td headers="synonym" class="gt_row gt_left">NA</td></tr>
-    <tr><td headers="name" class="gt_row gt_left">Abnormal platelet ATP dense granule secretion</td>
-<td headers="id" class="gt_row gt_left">HP:0030398</td>
-<td headers="childrenCount" class="gt_row gt_right">0</td>
-<td headers="ontologyId" class="gt_row gt_left">HP:0030398</td>
+    <tr><td headers="name" class="gt_row gt_left"><div data-qmd="Abnormal platelet ATP dense granule secretion"><div class='gt_from_md'><p>Abnormal platelet ATP dense granule secretion</p>
+</div></div></td>
+<td headers="id" class="gt_row gt_left"><div data-qmd="HP:0030398"><div class='gt_from_md'><p>HP:0030398</p>
+</div></div></td>
+<td headers="childrenCount" class="gt_row gt_right"><div data-qmd="0"><div class='gt_from_md'><p>0</p>
+</div></div></td>
+<td headers="ontologyId" class="gt_row gt_left"><div data-qmd="HP:0030398"><div class='gt_from_md'><p>HP:0030398</p>
+</div></div></td>
 <td headers="synonym" class="gt_row gt_left">NA</td></tr>
   </tbody>
   
@@ -896,27 +916,30 @@ For the diseases category:
 <summary>Code</summary>
 
 ``` r
-gt::gt(atp_general_search[["hpo_general_diseases"]])
+atp_general_search[["hpo_general_diseases"]] |>
+  gt::gt() |>
+  gt::fmt_markdown(columns = everything()) |>
+  gt::tab_options(table.width = gt::px(400))
 ```
 
 </details>
-<div id="zjaxmsexis" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#zjaxmsexis table {
+<div id="nhxakgbqzs" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#nhxakgbqzs table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#zjaxmsexis thead, #zjaxmsexis tbody, #zjaxmsexis tfoot, #zjaxmsexis tr, #zjaxmsexis td, #zjaxmsexis th {
+#nhxakgbqzs thead, #nhxakgbqzs tbody, #nhxakgbqzs tfoot, #nhxakgbqzs tr, #nhxakgbqzs td, #nhxakgbqzs th {
   border-style: none;
 }
 
-#zjaxmsexis p {
+#nhxakgbqzs p {
   margin: 0;
   padding: 0;
 }
 
-#zjaxmsexis .gt_table {
+#nhxakgbqzs .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -927,7 +950,7 @@ gt::gt(atp_general_search[["hpo_general_diseases"]])
   font-weight: normal;
   font-style: normal;
   background-color: #FFFFFF;
-  width: auto;
+  width: 400px;
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #A8A8A8;
@@ -942,12 +965,12 @@ gt::gt(atp_general_search[["hpo_general_diseases"]])
   border-left-color: #D3D3D3;
 }
 
-#zjaxmsexis .gt_caption {
+#nhxakgbqzs .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#zjaxmsexis .gt_title {
+#nhxakgbqzs .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -959,7 +982,7 @@ gt::gt(atp_general_search[["hpo_general_diseases"]])
   border-bottom-width: 0;
 }
 
-#zjaxmsexis .gt_subtitle {
+#nhxakgbqzs .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -971,7 +994,7 @@ gt::gt(atp_general_search[["hpo_general_diseases"]])
   border-top-width: 0;
 }
 
-#zjaxmsexis .gt_heading {
+#nhxakgbqzs .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -983,13 +1006,13 @@ gt::gt(atp_general_search[["hpo_general_diseases"]])
   border-right-color: #D3D3D3;
 }
 
-#zjaxmsexis .gt_bottom_border {
+#nhxakgbqzs .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#zjaxmsexis .gt_col_headings {
+#nhxakgbqzs .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1004,7 +1027,7 @@ gt::gt(atp_general_search[["hpo_general_diseases"]])
   border-right-color: #D3D3D3;
 }
 
-#zjaxmsexis .gt_col_heading {
+#nhxakgbqzs .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1024,7 +1047,7 @@ gt::gt(atp_general_search[["hpo_general_diseases"]])
   overflow-x: hidden;
 }
 
-#zjaxmsexis .gt_column_spanner_outer {
+#nhxakgbqzs .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1036,15 +1059,15 @@ gt::gt(atp_general_search[["hpo_general_diseases"]])
   padding-right: 4px;
 }
 
-#zjaxmsexis .gt_column_spanner_outer:first-child {
+#nhxakgbqzs .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#zjaxmsexis .gt_column_spanner_outer:last-child {
+#nhxakgbqzs .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#zjaxmsexis .gt_column_spanner {
+#nhxakgbqzs .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1056,11 +1079,11 @@ gt::gt(atp_general_search[["hpo_general_diseases"]])
   width: 100%;
 }
 
-#zjaxmsexis .gt_spanner_row {
+#nhxakgbqzs .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#zjaxmsexis .gt_group_heading {
+#nhxakgbqzs .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1086,7 +1109,7 @@ gt::gt(atp_general_search[["hpo_general_diseases"]])
   text-align: left;
 }
 
-#zjaxmsexis .gt_empty_group_heading {
+#nhxakgbqzs .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1101,15 +1124,15 @@ gt::gt(atp_general_search[["hpo_general_diseases"]])
   vertical-align: middle;
 }
 
-#zjaxmsexis .gt_from_md > :first-child {
+#nhxakgbqzs .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#zjaxmsexis .gt_from_md > :last-child {
+#nhxakgbqzs .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#zjaxmsexis .gt_row {
+#nhxakgbqzs .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1128,7 +1151,7 @@ gt::gt(atp_general_search[["hpo_general_diseases"]])
   overflow-x: hidden;
 }
 
-#zjaxmsexis .gt_stub {
+#nhxakgbqzs .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1141,7 +1164,7 @@ gt::gt(atp_general_search[["hpo_general_diseases"]])
   padding-right: 5px;
 }
 
-#zjaxmsexis .gt_stub_row_group {
+#nhxakgbqzs .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1155,15 +1178,15 @@ gt::gt(atp_general_search[["hpo_general_diseases"]])
   vertical-align: top;
 }
 
-#zjaxmsexis .gt_row_group_first td {
+#nhxakgbqzs .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#zjaxmsexis .gt_row_group_first th {
+#nhxakgbqzs .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#zjaxmsexis .gt_summary_row {
+#nhxakgbqzs .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1173,16 +1196,16 @@ gt::gt(atp_general_search[["hpo_general_diseases"]])
   padding-right: 5px;
 }
 
-#zjaxmsexis .gt_first_summary_row {
+#nhxakgbqzs .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#zjaxmsexis .gt_first_summary_row.thick {
+#nhxakgbqzs .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#zjaxmsexis .gt_last_summary_row {
+#nhxakgbqzs .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1192,7 +1215,7 @@ gt::gt(atp_general_search[["hpo_general_diseases"]])
   border-bottom-color: #D3D3D3;
 }
 
-#zjaxmsexis .gt_grand_summary_row {
+#nhxakgbqzs .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1202,7 +1225,7 @@ gt::gt(atp_general_search[["hpo_general_diseases"]])
   padding-right: 5px;
 }
 
-#zjaxmsexis .gt_first_grand_summary_row {
+#nhxakgbqzs .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1212,7 +1235,7 @@ gt::gt(atp_general_search[["hpo_general_diseases"]])
   border-top-color: #D3D3D3;
 }
 
-#zjaxmsexis .gt_last_grand_summary_row_top {
+#nhxakgbqzs .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1222,11 +1245,11 @@ gt::gt(atp_general_search[["hpo_general_diseases"]])
   border-bottom-color: #D3D3D3;
 }
 
-#zjaxmsexis .gt_striped {
+#nhxakgbqzs .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#zjaxmsexis .gt_table_body {
+#nhxakgbqzs .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1235,7 +1258,7 @@ gt::gt(atp_general_search[["hpo_general_diseases"]])
   border-bottom-color: #D3D3D3;
 }
 
-#zjaxmsexis .gt_footnotes {
+#nhxakgbqzs .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1249,7 +1272,7 @@ gt::gt(atp_general_search[["hpo_general_diseases"]])
   border-right-color: #D3D3D3;
 }
 
-#zjaxmsexis .gt_footnote {
+#nhxakgbqzs .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1258,7 +1281,7 @@ gt::gt(atp_general_search[["hpo_general_diseases"]])
   padding-right: 5px;
 }
 
-#zjaxmsexis .gt_sourcenotes {
+#nhxakgbqzs .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1272,7 +1295,7 @@ gt::gt(atp_general_search[["hpo_general_diseases"]])
   border-right-color: #D3D3D3;
 }
 
-#zjaxmsexis .gt_sourcenote {
+#nhxakgbqzs .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1280,63 +1303,63 @@ gt::gt(atp_general_search[["hpo_general_diseases"]])
   padding-right: 5px;
 }
 
-#zjaxmsexis .gt_left {
+#nhxakgbqzs .gt_left {
   text-align: left;
 }
 
-#zjaxmsexis .gt_center {
+#nhxakgbqzs .gt_center {
   text-align: center;
 }
 
-#zjaxmsexis .gt_right {
+#nhxakgbqzs .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#zjaxmsexis .gt_font_normal {
+#nhxakgbqzs .gt_font_normal {
   font-weight: normal;
 }
 
-#zjaxmsexis .gt_font_bold {
+#nhxakgbqzs .gt_font_bold {
   font-weight: bold;
 }
 
-#zjaxmsexis .gt_font_italic {
+#nhxakgbqzs .gt_font_italic {
   font-style: italic;
 }
 
-#zjaxmsexis .gt_super {
+#nhxakgbqzs .gt_super {
   font-size: 65%;
 }
 
-#zjaxmsexis .gt_footnote_marks {
+#nhxakgbqzs .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#zjaxmsexis .gt_asterisk {
+#nhxakgbqzs .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#zjaxmsexis .gt_indent_1 {
+#nhxakgbqzs .gt_indent_1 {
   text-indent: 5px;
 }
 
-#zjaxmsexis .gt_indent_2 {
+#nhxakgbqzs .gt_indent_2 {
   text-indent: 10px;
 }
 
-#zjaxmsexis .gt_indent_3 {
+#nhxakgbqzs .gt_indent_3 {
   text-indent: 15px;
 }
 
-#zjaxmsexis .gt_indent_4 {
+#nhxakgbqzs .gt_indent_4 {
   text-indent: 20px;
 }
 
-#zjaxmsexis .gt_indent_5 {
+#nhxakgbqzs .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -1350,54 +1373,102 @@ gt::gt(atp_general_search[["hpo_general_diseases"]])
     </tr>
   </thead>
   <tbody class="gt_table_body">
-    <tr><td headers="db" class="gt_row gt_left">ORPHA</td>
-<td headers="dbName" class="gt_row gt_left">ATP13A2-related juvenile neuronal ceroid lipofuscinosis</td>
-<td headers="dbRef" class="gt_row gt_right">314632</td>
-<td headers="diseaseId" class="gt_row gt_left">ORPHA:314632</td></tr>
-    <tr><td headers="db" class="gt_row gt_left">ORPHA</td>
-<td headers="dbName" class="gt_row gt_left">Isolated ATP synthase deficiency</td>
-<td headers="dbRef" class="gt_row gt_right">254913</td>
-<td headers="diseaseId" class="gt_row gt_left">ORPHA:254913</td></tr>
-    <tr><td headers="db" class="gt_row gt_left">OMIM</td>
-<td headers="dbName" class="gt_row gt_left">Mitochondrial complex V (ATP synthase) deficiency nuclear type 5</td>
-<td headers="dbRef" class="gt_row gt_right">618120</td>
-<td headers="diseaseId" class="gt_row gt_left">OMIM:618120</td></tr>
-    <tr><td headers="db" class="gt_row gt_left">OMIM</td>
-<td headers="dbName" class="gt_row gt_left">Mitochondrial complex V (ATP synthase) deficiency, nuclear type 1</td>
-<td headers="dbRef" class="gt_row gt_right">604273</td>
-<td headers="diseaseId" class="gt_row gt_left">OMIM:604273</td></tr>
-    <tr><td headers="db" class="gt_row gt_left">OMIM</td>
-<td headers="dbName" class="gt_row gt_left">Mitochondrial complex V (ATP synthase) deficiency, nuclear type 2</td>
-<td headers="dbRef" class="gt_row gt_right">614052</td>
-<td headers="diseaseId" class="gt_row gt_left">OMIM:614052</td></tr>
-    <tr><td headers="db" class="gt_row gt_left">OMIM</td>
-<td headers="dbName" class="gt_row gt_left">Mitochondrial complex V (atp synthase) deficiency, nuclear type 3</td>
-<td headers="dbRef" class="gt_row gt_right">614053</td>
-<td headers="diseaseId" class="gt_row gt_left">OMIM:614053</td></tr>
-    <tr><td headers="db" class="gt_row gt_left">OMIM</td>
-<td headers="dbName" class="gt_row gt_left">Mitochondrial complex V (atp synthase) deficiency, nuclear type 4</td>
-<td headers="dbRef" class="gt_row gt_right">615228</td>
-<td headers="diseaseId" class="gt_row gt_left">OMIM:615228</td></tr>
-    <tr><td headers="db" class="gt_row gt_left">OMIM</td>
-<td headers="dbName" class="gt_row gt_left">Mitochondrial complex V (ATP synthase) deficiency, nuclear type 4A</td>
-<td headers="dbRef" class="gt_row gt_right">620358</td>
-<td headers="diseaseId" class="gt_row gt_left">OMIM:620358</td></tr>
-    <tr><td headers="db" class="gt_row gt_left">OMIM</td>
-<td headers="dbName" class="gt_row gt_left">Mitochondrial complex V (ATP synthase) deficiency, nuclear type 6</td>
-<td headers="dbRef" class="gt_row gt_right">618683</td>
-<td headers="diseaseId" class="gt_row gt_left">OMIM:618683</td></tr>
-    <tr><td headers="db" class="gt_row gt_left">OMIM</td>
-<td headers="dbName" class="gt_row gt_left">Mitochondrial complex V (ATP synthase) deficiency, nuclear type 7</td>
-<td headers="dbRef" class="gt_row gt_right">620359</td>
-<td headers="diseaseId" class="gt_row gt_left">OMIM:620359</td></tr>
-    <tr><td headers="db" class="gt_row gt_left">ORPHA</td>
-<td headers="dbName" class="gt_row gt_left">MT-ATP6-related mitochondrial spastic paraplegia</td>
-<td headers="dbRef" class="gt_row gt_right">320360</td>
-<td headers="diseaseId" class="gt_row gt_left">ORPHA:320360</td></tr>
-    <tr><td headers="db" class="gt_row gt_left">OMIM</td>
-<td headers="dbName" class="gt_row gt_left">Sodium-Potassium-Atpase activity of red cell</td>
-<td headers="dbRef" class="gt_row gt_right">270425</td>
-<td headers="diseaseId" class="gt_row gt_left">OMIM:270425</td></tr>
+    <tr><td headers="db" class="gt_row gt_left"><div data-qmd="ORPHA"><div class='gt_from_md'><p>ORPHA</p>
+</div></div></td>
+<td headers="dbName" class="gt_row gt_left"><div data-qmd="ATP13A2-related juvenile neuronal ceroid lipofuscinosis"><div class='gt_from_md'><p>ATP13A2-related juvenile neuronal ceroid lipofuscinosis</p>
+</div></div></td>
+<td headers="dbRef" class="gt_row gt_right"><div data-qmd="314632"><div class='gt_from_md'><p>314632</p>
+</div></div></td>
+<td headers="diseaseId" class="gt_row gt_left"><div data-qmd="ORPHA:314632"><div class='gt_from_md'><p>ORPHA:314632</p>
+</div></div></td></tr>
+    <tr><td headers="db" class="gt_row gt_left"><div data-qmd="ORPHA"><div class='gt_from_md'><p>ORPHA</p>
+</div></div></td>
+<td headers="dbName" class="gt_row gt_left"><div data-qmd="Isolated ATP synthase deficiency"><div class='gt_from_md'><p>Isolated ATP synthase deficiency</p>
+</div></div></td>
+<td headers="dbRef" class="gt_row gt_right"><div data-qmd="254913"><div class='gt_from_md'><p>254913</p>
+</div></div></td>
+<td headers="diseaseId" class="gt_row gt_left"><div data-qmd="ORPHA:254913"><div class='gt_from_md'><p>ORPHA:254913</p>
+</div></div></td></tr>
+    <tr><td headers="db" class="gt_row gt_left"><div data-qmd="OMIM"><div class='gt_from_md'><p>OMIM</p>
+</div></div></td>
+<td headers="dbName" class="gt_row gt_left"><div data-qmd="Mitochondrial complex V (ATP synthase) deficiency nuclear type 5"><div class='gt_from_md'><p>Mitochondrial complex V (ATP synthase) deficiency nuclear type 5</p>
+</div></div></td>
+<td headers="dbRef" class="gt_row gt_right"><div data-qmd="618120"><div class='gt_from_md'><p>618120</p>
+</div></div></td>
+<td headers="diseaseId" class="gt_row gt_left"><div data-qmd="OMIM:618120"><div class='gt_from_md'><p>OMIM:618120</p>
+</div></div></td></tr>
+    <tr><td headers="db" class="gt_row gt_left"><div data-qmd="OMIM"><div class='gt_from_md'><p>OMIM</p>
+</div></div></td>
+<td headers="dbName" class="gt_row gt_left"><div data-qmd="Mitochondrial complex V (ATP synthase) deficiency, nuclear type 1"><div class='gt_from_md'><p>Mitochondrial complex V (ATP synthase) deficiency, nuclear type 1</p>
+</div></div></td>
+<td headers="dbRef" class="gt_row gt_right"><div data-qmd="604273"><div class='gt_from_md'><p>604273</p>
+</div></div></td>
+<td headers="diseaseId" class="gt_row gt_left"><div data-qmd="OMIM:604273"><div class='gt_from_md'><p>OMIM:604273</p>
+</div></div></td></tr>
+    <tr><td headers="db" class="gt_row gt_left"><div data-qmd="OMIM"><div class='gt_from_md'><p>OMIM</p>
+</div></div></td>
+<td headers="dbName" class="gt_row gt_left"><div data-qmd="Mitochondrial complex V (ATP synthase) deficiency, nuclear type 2"><div class='gt_from_md'><p>Mitochondrial complex V (ATP synthase) deficiency, nuclear type 2</p>
+</div></div></td>
+<td headers="dbRef" class="gt_row gt_right"><div data-qmd="614052"><div class='gt_from_md'><p>614052</p>
+</div></div></td>
+<td headers="diseaseId" class="gt_row gt_left"><div data-qmd="OMIM:614052"><div class='gt_from_md'><p>OMIM:614052</p>
+</div></div></td></tr>
+    <tr><td headers="db" class="gt_row gt_left"><div data-qmd="OMIM"><div class='gt_from_md'><p>OMIM</p>
+</div></div></td>
+<td headers="dbName" class="gt_row gt_left"><div data-qmd="Mitochondrial complex V (atp synthase) deficiency, nuclear type 3"><div class='gt_from_md'><p>Mitochondrial complex V (atp synthase) deficiency, nuclear type 3</p>
+</div></div></td>
+<td headers="dbRef" class="gt_row gt_right"><div data-qmd="614053"><div class='gt_from_md'><p>614053</p>
+</div></div></td>
+<td headers="diseaseId" class="gt_row gt_left"><div data-qmd="OMIM:614053"><div class='gt_from_md'><p>OMIM:614053</p>
+</div></div></td></tr>
+    <tr><td headers="db" class="gt_row gt_left"><div data-qmd="OMIM"><div class='gt_from_md'><p>OMIM</p>
+</div></div></td>
+<td headers="dbName" class="gt_row gt_left"><div data-qmd="Mitochondrial complex V (atp synthase) deficiency, nuclear type 4"><div class='gt_from_md'><p>Mitochondrial complex V (atp synthase) deficiency, nuclear type 4</p>
+</div></div></td>
+<td headers="dbRef" class="gt_row gt_right"><div data-qmd="615228"><div class='gt_from_md'><p>615228</p>
+</div></div></td>
+<td headers="diseaseId" class="gt_row gt_left"><div data-qmd="OMIM:615228"><div class='gt_from_md'><p>OMIM:615228</p>
+</div></div></td></tr>
+    <tr><td headers="db" class="gt_row gt_left"><div data-qmd="OMIM"><div class='gt_from_md'><p>OMIM</p>
+</div></div></td>
+<td headers="dbName" class="gt_row gt_left"><div data-qmd="Mitochondrial complex V (ATP synthase) deficiency, nuclear type 4A"><div class='gt_from_md'><p>Mitochondrial complex V (ATP synthase) deficiency, nuclear type 4A</p>
+</div></div></td>
+<td headers="dbRef" class="gt_row gt_right"><div data-qmd="620358"><div class='gt_from_md'><p>620358</p>
+</div></div></td>
+<td headers="diseaseId" class="gt_row gt_left"><div data-qmd="OMIM:620358"><div class='gt_from_md'><p>OMIM:620358</p>
+</div></div></td></tr>
+    <tr><td headers="db" class="gt_row gt_left"><div data-qmd="OMIM"><div class='gt_from_md'><p>OMIM</p>
+</div></div></td>
+<td headers="dbName" class="gt_row gt_left"><div data-qmd="Mitochondrial complex V (ATP synthase) deficiency, nuclear type 6"><div class='gt_from_md'><p>Mitochondrial complex V (ATP synthase) deficiency, nuclear type 6</p>
+</div></div></td>
+<td headers="dbRef" class="gt_row gt_right"><div data-qmd="618683"><div class='gt_from_md'><p>618683</p>
+</div></div></td>
+<td headers="diseaseId" class="gt_row gt_left"><div data-qmd="OMIM:618683"><div class='gt_from_md'><p>OMIM:618683</p>
+</div></div></td></tr>
+    <tr><td headers="db" class="gt_row gt_left"><div data-qmd="OMIM"><div class='gt_from_md'><p>OMIM</p>
+</div></div></td>
+<td headers="dbName" class="gt_row gt_left"><div data-qmd="Mitochondrial complex V (ATP synthase) deficiency, nuclear type 7"><div class='gt_from_md'><p>Mitochondrial complex V (ATP synthase) deficiency, nuclear type 7</p>
+</div></div></td>
+<td headers="dbRef" class="gt_row gt_right"><div data-qmd="620359"><div class='gt_from_md'><p>620359</p>
+</div></div></td>
+<td headers="diseaseId" class="gt_row gt_left"><div data-qmd="OMIM:620359"><div class='gt_from_md'><p>OMIM:620359</p>
+</div></div></td></tr>
+    <tr><td headers="db" class="gt_row gt_left"><div data-qmd="ORPHA"><div class='gt_from_md'><p>ORPHA</p>
+</div></div></td>
+<td headers="dbName" class="gt_row gt_left"><div data-qmd="MT-ATP6-related mitochondrial spastic paraplegia"><div class='gt_from_md'><p>MT-ATP6-related mitochondrial spastic paraplegia</p>
+</div></div></td>
+<td headers="dbRef" class="gt_row gt_right"><div data-qmd="320360"><div class='gt_from_md'><p>320360</p>
+</div></div></td>
+<td headers="diseaseId" class="gt_row gt_left"><div data-qmd="ORPHA:320360"><div class='gt_from_md'><p>ORPHA:320360</p>
+</div></div></td></tr>
+    <tr><td headers="db" class="gt_row gt_left"><div data-qmd="OMIM"><div class='gt_from_md'><p>OMIM</p>
+</div></div></td>
+<td headers="dbName" class="gt_row gt_left"><div data-qmd="Sodium-Potassium-Atpase activity of red cell"><div class='gt_from_md'><p>Sodium-Potassium-Atpase activity of red cell</p>
+</div></div></td>
+<td headers="dbRef" class="gt_row gt_right"><div data-qmd="270425"><div class='gt_from_md'><p>270425</p>
+</div></div></td>
+<td headers="diseaseId" class="gt_row gt_left"><div data-qmd="OMIM:270425"><div class='gt_from_md'><p>OMIM:270425</p>
+</div></div></td></tr>
   </tbody>
   
   
@@ -1410,27 +1481,30 @@ and for the genes:
 <summary>Code</summary>
 
 ``` r
-gt::gt(atp_general_search[["hpo_general_genes"]])
+atp_general_search[["hpo_general_genes"]][1:5,] |>
+  gt::gt() |>
+  gt::fmt_markdown(columns = everything()) |>
+  gt::tab_options(table.width = gt::px(400))
 ```
 
 </details>
-<div id="wksxeygnvh" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#wksxeygnvh table {
+<div id="rxedcvtydc" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#rxedcvtydc table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#wksxeygnvh thead, #wksxeygnvh tbody, #wksxeygnvh tfoot, #wksxeygnvh tr, #wksxeygnvh td, #wksxeygnvh th {
+#rxedcvtydc thead, #rxedcvtydc tbody, #rxedcvtydc tfoot, #rxedcvtydc tr, #rxedcvtydc td, #rxedcvtydc th {
   border-style: none;
 }
 
-#wksxeygnvh p {
+#rxedcvtydc p {
   margin: 0;
   padding: 0;
 }
 
-#wksxeygnvh .gt_table {
+#rxedcvtydc .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1441,7 +1515,7 @@ gt::gt(atp_general_search[["hpo_general_genes"]])
   font-weight: normal;
   font-style: normal;
   background-color: #FFFFFF;
-  width: auto;
+  width: 400px;
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #A8A8A8;
@@ -1456,12 +1530,12 @@ gt::gt(atp_general_search[["hpo_general_genes"]])
   border-left-color: #D3D3D3;
 }
 
-#wksxeygnvh .gt_caption {
+#rxedcvtydc .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#wksxeygnvh .gt_title {
+#rxedcvtydc .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1473,7 +1547,7 @@ gt::gt(atp_general_search[["hpo_general_genes"]])
   border-bottom-width: 0;
 }
 
-#wksxeygnvh .gt_subtitle {
+#rxedcvtydc .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1485,7 +1559,7 @@ gt::gt(atp_general_search[["hpo_general_genes"]])
   border-top-width: 0;
 }
 
-#wksxeygnvh .gt_heading {
+#rxedcvtydc .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1497,13 +1571,13 @@ gt::gt(atp_general_search[["hpo_general_genes"]])
   border-right-color: #D3D3D3;
 }
 
-#wksxeygnvh .gt_bottom_border {
+#rxedcvtydc .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#wksxeygnvh .gt_col_headings {
+#rxedcvtydc .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1518,7 +1592,7 @@ gt::gt(atp_general_search[["hpo_general_genes"]])
   border-right-color: #D3D3D3;
 }
 
-#wksxeygnvh .gt_col_heading {
+#rxedcvtydc .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1538,7 +1612,7 @@ gt::gt(atp_general_search[["hpo_general_genes"]])
   overflow-x: hidden;
 }
 
-#wksxeygnvh .gt_column_spanner_outer {
+#rxedcvtydc .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1550,15 +1624,15 @@ gt::gt(atp_general_search[["hpo_general_genes"]])
   padding-right: 4px;
 }
 
-#wksxeygnvh .gt_column_spanner_outer:first-child {
+#rxedcvtydc .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#wksxeygnvh .gt_column_spanner_outer:last-child {
+#rxedcvtydc .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#wksxeygnvh .gt_column_spanner {
+#rxedcvtydc .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1570,11 +1644,11 @@ gt::gt(atp_general_search[["hpo_general_genes"]])
   width: 100%;
 }
 
-#wksxeygnvh .gt_spanner_row {
+#rxedcvtydc .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#wksxeygnvh .gt_group_heading {
+#rxedcvtydc .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1600,7 +1674,7 @@ gt::gt(atp_general_search[["hpo_general_genes"]])
   text-align: left;
 }
 
-#wksxeygnvh .gt_empty_group_heading {
+#rxedcvtydc .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1615,15 +1689,15 @@ gt::gt(atp_general_search[["hpo_general_genes"]])
   vertical-align: middle;
 }
 
-#wksxeygnvh .gt_from_md > :first-child {
+#rxedcvtydc .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#wksxeygnvh .gt_from_md > :last-child {
+#rxedcvtydc .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#wksxeygnvh .gt_row {
+#rxedcvtydc .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1642,7 +1716,7 @@ gt::gt(atp_general_search[["hpo_general_genes"]])
   overflow-x: hidden;
 }
 
-#wksxeygnvh .gt_stub {
+#rxedcvtydc .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1655,7 +1729,7 @@ gt::gt(atp_general_search[["hpo_general_genes"]])
   padding-right: 5px;
 }
 
-#wksxeygnvh .gt_stub_row_group {
+#rxedcvtydc .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1669,15 +1743,15 @@ gt::gt(atp_general_search[["hpo_general_genes"]])
   vertical-align: top;
 }
 
-#wksxeygnvh .gt_row_group_first td {
+#rxedcvtydc .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#wksxeygnvh .gt_row_group_first th {
+#rxedcvtydc .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#wksxeygnvh .gt_summary_row {
+#rxedcvtydc .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1687,16 +1761,16 @@ gt::gt(atp_general_search[["hpo_general_genes"]])
   padding-right: 5px;
 }
 
-#wksxeygnvh .gt_first_summary_row {
+#rxedcvtydc .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#wksxeygnvh .gt_first_summary_row.thick {
+#rxedcvtydc .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#wksxeygnvh .gt_last_summary_row {
+#rxedcvtydc .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1706,7 +1780,7 @@ gt::gt(atp_general_search[["hpo_general_genes"]])
   border-bottom-color: #D3D3D3;
 }
 
-#wksxeygnvh .gt_grand_summary_row {
+#rxedcvtydc .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1716,7 +1790,7 @@ gt::gt(atp_general_search[["hpo_general_genes"]])
   padding-right: 5px;
 }
 
-#wksxeygnvh .gt_first_grand_summary_row {
+#rxedcvtydc .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1726,7 +1800,7 @@ gt::gt(atp_general_search[["hpo_general_genes"]])
   border-top-color: #D3D3D3;
 }
 
-#wksxeygnvh .gt_last_grand_summary_row_top {
+#rxedcvtydc .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1736,11 +1810,11 @@ gt::gt(atp_general_search[["hpo_general_genes"]])
   border-bottom-color: #D3D3D3;
 }
 
-#wksxeygnvh .gt_striped {
+#rxedcvtydc .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#wksxeygnvh .gt_table_body {
+#rxedcvtydc .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1749,7 +1823,7 @@ gt::gt(atp_general_search[["hpo_general_genes"]])
   border-bottom-color: #D3D3D3;
 }
 
-#wksxeygnvh .gt_footnotes {
+#rxedcvtydc .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1763,7 +1837,7 @@ gt::gt(atp_general_search[["hpo_general_genes"]])
   border-right-color: #D3D3D3;
 }
 
-#wksxeygnvh .gt_footnote {
+#rxedcvtydc .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1772,7 +1846,7 @@ gt::gt(atp_general_search[["hpo_general_genes"]])
   padding-right: 5px;
 }
 
-#wksxeygnvh .gt_sourcenotes {
+#rxedcvtydc .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1786,7 +1860,7 @@ gt::gt(atp_general_search[["hpo_general_genes"]])
   border-right-color: #D3D3D3;
 }
 
-#wksxeygnvh .gt_sourcenote {
+#rxedcvtydc .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1794,63 +1868,63 @@ gt::gt(atp_general_search[["hpo_general_genes"]])
   padding-right: 5px;
 }
 
-#wksxeygnvh .gt_left {
+#rxedcvtydc .gt_left {
   text-align: left;
 }
 
-#wksxeygnvh .gt_center {
+#rxedcvtydc .gt_center {
   text-align: center;
 }
 
-#wksxeygnvh .gt_right {
+#rxedcvtydc .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#wksxeygnvh .gt_font_normal {
+#rxedcvtydc .gt_font_normal {
   font-weight: normal;
 }
 
-#wksxeygnvh .gt_font_bold {
+#rxedcvtydc .gt_font_bold {
   font-weight: bold;
 }
 
-#wksxeygnvh .gt_font_italic {
+#rxedcvtydc .gt_font_italic {
   font-style: italic;
 }
 
-#wksxeygnvh .gt_super {
+#rxedcvtydc .gt_super {
   font-size: 65%;
 }
 
-#wksxeygnvh .gt_footnote_marks {
+#rxedcvtydc .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#wksxeygnvh .gt_asterisk {
+#rxedcvtydc .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#wksxeygnvh .gt_indent_1 {
+#rxedcvtydc .gt_indent_1 {
   text-indent: 5px;
 }
 
-#wksxeygnvh .gt_indent_2 {
+#rxedcvtydc .gt_indent_2 {
   text-indent: 10px;
 }
 
-#wksxeygnvh .gt_indent_3 {
+#rxedcvtydc .gt_indent_3 {
   text-indent: 15px;
 }
 
-#wksxeygnvh .gt_indent_4 {
+#rxedcvtydc .gt_indent_4 {
   text-indent: 20px;
 }
 
-#wksxeygnvh .gt_indent_5 {
+#rxedcvtydc .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -1862,90 +1936,26 @@ gt::gt(atp_general_search[["hpo_general_genes"]])
     </tr>
   </thead>
   <tbody class="gt_table_body">
-    <tr><td headers="geneId" class="gt_row gt_right">57194</td>
-<td headers="geneSymbol" class="gt_row gt_left">ATP10A</td></tr>
-    <tr><td headers="geneId" class="gt_row gt_right">23250</td>
-<td headers="geneSymbol" class="gt_row gt_left">ATP11A</td></tr>
-    <tr><td headers="geneId" class="gt_row gt_right">286410</td>
-<td headers="geneSymbol" class="gt_row gt_left">ATP11C</td></tr>
-    <tr><td headers="geneId" class="gt_row gt_right">23400</td>
-<td headers="geneSymbol" class="gt_row gt_left">ATP13A2</td></tr>
-    <tr><td headers="geneId" class="gt_row gt_right">79572</td>
-<td headers="geneSymbol" class="gt_row gt_left">ATP13A3</td></tr>
-    <tr><td headers="geneId" class="gt_row gt_right">476</td>
-<td headers="geneSymbol" class="gt_row gt_left">ATP1A1</td></tr>
-    <tr><td headers="geneId" class="gt_row gt_right">477</td>
-<td headers="geneSymbol" class="gt_row gt_left">ATP1A2</td></tr>
-    <tr><td headers="geneId" class="gt_row gt_right">478</td>
-<td headers="geneSymbol" class="gt_row gt_left">ATP1A3</td></tr>
-    <tr><td headers="geneId" class="gt_row gt_right">481</td>
-<td headers="geneSymbol" class="gt_row gt_left">ATP1B1</td></tr>
-    <tr><td headers="geneId" class="gt_row gt_right">487</td>
-<td headers="geneSymbol" class="gt_row gt_left">ATP2A1</td></tr>
-    <tr><td headers="geneId" class="gt_row gt_right">488</td>
-<td headers="geneSymbol" class="gt_row gt_left">ATP2A2</td></tr>
-    <tr><td headers="geneId" class="gt_row gt_right">490</td>
-<td headers="geneSymbol" class="gt_row gt_left">ATP2B1</td></tr>
-    <tr><td headers="geneId" class="gt_row gt_right">491</td>
-<td headers="geneSymbol" class="gt_row gt_left">ATP2B2</td></tr>
-    <tr><td headers="geneId" class="gt_row gt_right">492</td>
-<td headers="geneSymbol" class="gt_row gt_left">ATP2B3</td></tr>
-    <tr><td headers="geneId" class="gt_row gt_right">27032</td>
-<td headers="geneSymbol" class="gt_row gt_left">ATP2C1</td></tr>
-    <tr><td headers="geneId" class="gt_row gt_right">495</td>
-<td headers="geneSymbol" class="gt_row gt_left">ATP4A</td></tr>
-    <tr><td headers="geneId" class="gt_row gt_right">498</td>
-<td headers="geneSymbol" class="gt_row gt_left">ATP5F1A</td></tr>
-    <tr><td headers="geneId" class="gt_row gt_right">506</td>
-<td headers="geneSymbol" class="gt_row gt_left">ATP5F1B</td></tr>
-    <tr><td headers="geneId" class="gt_row gt_right">513</td>
-<td headers="geneSymbol" class="gt_row gt_left">ATP5F1D</td></tr>
-    <tr><td headers="geneId" class="gt_row gt_right">514</td>
-<td headers="geneSymbol" class="gt_row gt_left">ATP5F1E</td></tr>
-    <tr><td headers="geneId" class="gt_row gt_right">518</td>
-<td headers="geneSymbol" class="gt_row gt_left">ATP5MC3</td></tr>
-    <tr><td headers="geneId" class="gt_row gt_right">84833</td>
-<td headers="geneSymbol" class="gt_row gt_left">ATP5MK</td></tr>
-    <tr><td headers="geneId" class="gt_row gt_right">539</td>
-<td headers="geneSymbol" class="gt_row gt_left">ATP5PO</td></tr>
-    <tr><td headers="geneId" class="gt_row gt_right">537</td>
-<td headers="geneSymbol" class="gt_row gt_left">ATP6AP1</td></tr>
-    <tr><td headers="geneId" class="gt_row gt_right">10159</td>
-<td headers="geneSymbol" class="gt_row gt_left">ATP6AP2</td></tr>
-    <tr><td headers="geneId" class="gt_row gt_right">535</td>
-<td headers="geneSymbol" class="gt_row gt_left">ATP6V0A1</td></tr>
-    <tr><td headers="geneId" class="gt_row gt_right">23545</td>
-<td headers="geneSymbol" class="gt_row gt_left">ATP6V0A2</td></tr>
-    <tr><td headers="geneId" class="gt_row gt_right">50617</td>
-<td headers="geneSymbol" class="gt_row gt_left">ATP6V0A4</td></tr>
-    <tr><td headers="geneId" class="gt_row gt_right">527</td>
-<td headers="geneSymbol" class="gt_row gt_left">ATP6V0C</td></tr>
-    <tr><td headers="geneId" class="gt_row gt_right">523</td>
-<td headers="geneSymbol" class="gt_row gt_left">ATP6V1A</td></tr>
-    <tr><td headers="geneId" class="gt_row gt_right">525</td>
-<td headers="geneSymbol" class="gt_row gt_left">ATP6V1B1</td></tr>
-    <tr><td headers="geneId" class="gt_row gt_right">526</td>
-<td headers="geneSymbol" class="gt_row gt_left">ATP6V1B2</td></tr>
-    <tr><td headers="geneId" class="gt_row gt_right">529</td>
-<td headers="geneSymbol" class="gt_row gt_left">ATP6V1E1</td></tr>
-    <tr><td headers="geneId" class="gt_row gt_right">538</td>
-<td headers="geneSymbol" class="gt_row gt_left">ATP7A</td></tr>
-    <tr><td headers="geneId" class="gt_row gt_right">540</td>
-<td headers="geneSymbol" class="gt_row gt_left">ATP7B</td></tr>
-    <tr><td headers="geneId" class="gt_row gt_right">51761</td>
-<td headers="geneSymbol" class="gt_row gt_left">ATP8A2</td></tr>
-    <tr><td headers="geneId" class="gt_row gt_right">5205</td>
-<td headers="geneSymbol" class="gt_row gt_left">ATP8B1</td></tr>
-    <tr><td headers="geneId" class="gt_row gt_right">10079</td>
-<td headers="geneSymbol" class="gt_row gt_left">ATP9A</td></tr>
-    <tr><td headers="geneId" class="gt_row gt_right">64756</td>
-<td headers="geneSymbol" class="gt_row gt_left">ATPAF1</td></tr>
-    <tr><td headers="geneId" class="gt_row gt_right">91647</td>
-<td headers="geneSymbol" class="gt_row gt_left">ATPAF2</td></tr>
-    <tr><td headers="geneId" class="gt_row gt_right">4508</td>
-<td headers="geneSymbol" class="gt_row gt_left">MT-ATP6</td></tr>
-    <tr><td headers="geneId" class="gt_row gt_right">4509</td>
-<td headers="geneSymbol" class="gt_row gt_left">MT-ATP8</td></tr>
+    <tr><td headers="geneId" class="gt_row gt_right"><div data-qmd="57194"><div class='gt_from_md'><p>57194</p>
+</div></div></td>
+<td headers="geneSymbol" class="gt_row gt_left"><div data-qmd="ATP10A"><div class='gt_from_md'><p>ATP10A</p>
+</div></div></td></tr>
+    <tr><td headers="geneId" class="gt_row gt_right"><div data-qmd="23250"><div class='gt_from_md'><p>23250</p>
+</div></div></td>
+<td headers="geneSymbol" class="gt_row gt_left"><div data-qmd="ATP11A"><div class='gt_from_md'><p>ATP11A</p>
+</div></div></td></tr>
+    <tr><td headers="geneId" class="gt_row gt_right"><div data-qmd="286410"><div class='gt_from_md'><p>286410</p>
+</div></div></td>
+<td headers="geneSymbol" class="gt_row gt_left"><div data-qmd="ATP11C"><div class='gt_from_md'><p>ATP11C</p>
+</div></div></td></tr>
+    <tr><td headers="geneId" class="gt_row gt_right"><div data-qmd="23400"><div class='gt_from_md'><p>23400</p>
+</div></div></td>
+<td headers="geneSymbol" class="gt_row gt_left"><div data-qmd="ATP13A2"><div class='gt_from_md'><p>ATP13A2</p>
+</div></div></td></tr>
+    <tr><td headers="geneId" class="gt_row gt_right"><div data-qmd="79572"><div class='gt_from_md'><p>79572</p>
+</div></div></td>
+<td headers="geneSymbol" class="gt_row gt_left"><div data-qmd="ATP13A3"><div class='gt_from_md'><p>ATP13A3</p>
+</div></div></td></tr>
   </tbody>
   
   

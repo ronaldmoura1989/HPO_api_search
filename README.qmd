@@ -370,21 +370,30 @@ The function will return a list object containing three tibbles: terms, diseases
 
 ```{r}
 
-gt::gt(atp_general_search[["hpo_general_terms"]])
+atp_general_search[["hpo_general_terms"]] |>
+  gt::gt() |>
+  gt::fmt_markdown(columns = everything()) |>
+  gt::tab_options(table.width = gt::px(400))
 ```
 
 For the diseases category:
 
 ```{r}
 
-gt::gt(atp_general_search[["hpo_general_diseases"]])
+atp_general_search[["hpo_general_diseases"]] |>
+  gt::gt() |>
+  gt::fmt_markdown(columns = everything()) |>
+  gt::tab_options(table.width = gt::px(400))
 ```
 
 and for the genes:
 
 ```{r}
 
-gt::gt(atp_general_search[["hpo_general_genes"]])
+atp_general_search[["hpo_general_genes"]][1:5,] |>
+  gt::gt() |>
+  gt::fmt_markdown(columns = everything()) |>
+  gt::tab_options(table.width = gt::px(400))
 ```
 
 ```{r}
