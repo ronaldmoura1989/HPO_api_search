@@ -202,12 +202,21 @@ hpo_term_search = function(term_id) {
   
   #term details
   term_details = response |> 
-  resp_body_json() |> 
-  pluck("details") |> 
-  enframe() |> 
-  spread(name, value) |> 
-  select(name, id, altTermIds, definition, comment, 
-         synonyms, isObsolete, xrefs, pubmedXrefs)
+    resp_body_json() |> 
+    map_dfr(
+      \(x) {
+            tibble(name        = x |>  pluck("name"),
+                   id          = x |>  pluck("id"),
+                   altTermIds  = x |>  pluck("altTermIds") |> list(),
+                   definition  = x |>  pluck("definition"),
+                   comment     = x |>  pluck("comment"),
+                   synonyms    = x |>  pluck("synonyms") |> list(),
+                   isObsolete  = x |>  pluck("isObsolete"),
+                   xrefs       = x |>  pluck("xrefs") |> list(),
+                   pubmedXrefs = x |>  pluck("pubmedXrefs") |> list()
+            )
+        }) |>
+    drop_na()
   
   #term relations
   term_relations = response |> 
@@ -484,9 +493,6 @@ intrahepatic_jaundice$term_genes_association |>
 ```
 
 ```{r}
-
-
-
 
 
 #Autistic behavior: HP:0000729

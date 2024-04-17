@@ -218,7 +218,7 @@ hpo_term_search = function(term_id) {
                    synonyms    = x |>  pluck("synonyms") |> list(),
                    isObsolete  = x |>  pluck("isObsolete"),
                    xrefs       = x |>  pluck("xrefs") |> list(),
-                   pubmedXrefs = x |>  pluck("pubmedXrefs")
+                   pubmedXrefs = x |>  pluck("pubmedXrefs") |> list()
             )
         }) |>
     drop_na()
@@ -410,7 +410,7 @@ terms category:
 <summary>Code</summary>
 
 ``` r
-atp_general_search[["hpo_general_terms"]] |>
+atp_general_search$hpo_general_terms |>
   simplermarkdown::md_table()
 ```
 
@@ -434,7 +434,7 @@ database disease id.
 <summary>Code</summary>
 
 ``` r
-atp_general_search[["hpo_general_diseases"]] |>
+atp_general_search$hpo_general_diseases |>
   simplermarkdown::md_table()
 ```
 
@@ -462,7 +462,7 @@ symbol.
 <summary>Code</summary>
 
 ``` r
-atp_general_search[["hpo_general_genes"]][1:5,] |>
+atp_general_search$hpo_general_genes[1:5,] |>
   simplermarkdown::md_table()
 ```
 
@@ -497,26 +497,258 @@ MECP2 |>
       ..$ name      : chr [1:251] "Feeding difficulties" "Slowly progressive" "Abnormal repetitive mannerisms" "Developmental stagnation" ...
       ..$ definition: chr [1:251] "Impaired ability to eat related to problems gathering food and getting ready to suck, chew, or swallow it." "Applies to a disease manifestation that only slowly increases in scope or severity over the course of time." "Use of the same abnormal action in response to certain triggers or at random. They may be used as a way to regu"| __truncated__ "A cessation of the development of a child in the areas of motor skills, speech and language, cognitive skills, "| __truncated__ ...
      $ hpo_disease: tibble [11 × 3] (S3: tbl_df/tbl/data.frame)
-      ..$ diseaseId  : chr [1:11] "OMIM:300260" "ORPHA:778" "OMIM:300055" "ORPHA:3095" ...
-      ..$ diseaseName: chr [1:11] "Mental retardation, x-linked syndromic, Lubs type" "Rett syndrome" "Mental retardation, X-linked, syndromic 13" "Atypical Rett syndrome" ...
-      ..$ db         : chr [1:11] "OMIM" "ORPHA" "OMIM" "ORPHA" ...
+      ..$ diseaseId  : chr [1:11] "OMIM:300260" "ORPHA:536" "ORPHA:3077" "ORPHA:209370" ...
+      ..$ diseaseName: chr [1:11] "Mental retardation, x-linked syndromic, Lubs type" "Systemic lupus erythematosus" "X-linked intellectual disability-psychosis-macroorchidism syndrome" "Severe neonatal-onset encephalopathy with microcephaly" ...
+      ..$ db         : chr [1:11] "OMIM" "ORPHA" "ORPHA" "ORPHA" ...
+
+The gene search function retrieves a object with two lists: one with the
+terms and other with diseases. The earlier is a tibble showing the HPO
+terms associated with that particular gene.
 
 <details>
 <summary>Code</summary>
 
 ``` r
-#Rett syndrome: OMIM:312750
-rett_syndrome = hpo_disease_search("OMIM:312750")
+MECP2$hpo_assoc[1:5,] |> 
+    simplermarkdown::md_table()
+```
 
+</details>
+
+    |ontologyID|name                          |definition                                                                                                                                                                                      |
+    |----------|------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+    |HP:0011968|Feeding difficulties          |Impaired ability to eat related to problems gathering food and getting ready to suck, chew, or swallow it.                                                                                      |
+    |HP:0003677|Slowly progressive            |Applies to a disease manifestation that only slowly increases in scope or severity over the course of time.                                                                                     |
+    |HP:0000733|Abnormal repetitive mannerisms|Use of the same abnormal action in response to certain triggers or at random. They may be used as a way to regulate one's internal state but must otherwise have no apparent functional purpose.|
+    |HP:0007281|Developmental stagnation      |A cessation of the development of a child in the areas of motor skills, speech and language, cognitive skills, and social and/or emotional skills.                                              |
+    |HP:0025300|Malar rash                    |An erythematous (red), flat facial rash that affects the skin in the malar area (over the cheekbones) and extends over the bridge of the nose.                                                  |
+
+Here, we can see the ontology ID, the name corresponding to the term and
+its definition. For the latter, we can see a tibble showing disease ID,
+disease name and the database related to the disease:
+
+<details>
+<summary>Code</summary>
+
+``` r
+MECP2$hpo_disease[1:5,] |> 
+    simplermarkdown::md_table()
+```
+
+</details>
+
+    |diseaseId   |diseaseName                                                       |db   |
+    |------------|------------------------------------------------------------------|-----|
+    |OMIM:300260 |Mental retardation, x-linked syndromic, Lubs type                 |OMIM |
+    |ORPHA:536   |Systemic lupus erythematosus                                      |ORPHA|
+    |ORPHA:3077  |X-linked intellectual disability-psychosis-macroorchidism syndrome|ORPHA|
+    |ORPHA:209370|Severe neonatal-onset encephalopathy with microcephaly            |ORPHA|
+    |ORPHA:3095  |Atypical Rett syndrome                                            |ORPHA|
+
+Next one, we can search for a particular disease term and get some
+interesting results:
+
+<details>
+<summary>Code</summary>
+
+``` r
 #PFIC1: OMIM:211600
 pfic1 = hpo_disease_search("OMIM:211600")
 
-#Autistic behavior: HP:0000729
-autistic_behavior = hpo_term_search("HP:0000729")
+pfic1 |> 
+  glimpse()
+```
 
+</details>
+
+    List of 3
+     $ disease_details: tibble [1 × 4] (S3: tbl_df/tbl/data.frame)
+      ..$ diseaseId  : chr "OMIM:211600"
+      ..$ diseaseName: chr "Cholestasis, progressive familial intrahepatic 1"
+      ..$ dbId       : chr "211600"
+      ..$ db         : chr "OMIM"
+     $ disease_genes  : tibble [1 × 2] (S3: tbl_df/tbl/data.frame)
+      ..$ geneSymbol: chr "ATP8B1"
+      ..$ geneId    : int 5205
+     $ disease_terms  : tibble [19 × 7] (S3: tbl_df/tbl/data.frame)
+      ..$ catLabel  : chr [1:19] "Inheritance" "Blood and blood-forming tissues" "Metabolism/Laboratory abnormality" "Digestive System" ...
+      ..$ ontologyId: chr [1:19] "HP:0000007" "HP:0000421" "HP:0002908" "HP:0002014" ...
+      ..$ name      : chr [1:19] "Autosomal recessive inheritance" "Epistaxis" "Conjugated hyperbilirubinemia" "Diarrhea" ...
+      ..$ definition: chr [1:19] "A mode of inheritance that is observed for traits related to a gene encoded on one of the autosomes (i.e., the "| __truncated__ "Epistaxis, or nosebleed, refers to a hemorrhage localized in the nose." "" "Abnormally increased frequency (usually defined as three or more) loose or watery bowel movements a day." ...
+      ..$ frequency : chr [1:19] "" "17/31" "33/33" "" ...
+      ..$ onset     : chr [1:19] "" "" "" "" ...
+      ..$ sources   : chr [1:19] "PMID:9500542" "PMID:7912266" "PMID:7912266" "OMIM:211600" ...
+
+Now, he have a new list with three tibbles: disease details, genes and
+terms. The first one is as follows:
+
+<details>
+<summary>Code</summary>
+
+``` r
+pfic1$disease_details |> 
+    simplermarkdown::md_table()
+```
+
+</details>
+
+    |diseaseId  |diseaseName                                     |dbId  |db  |
+    |-----------|------------------------------------------------|------|----|
+    |OMIM:211600|Cholestasis, progressive familial intrahepatic 1|211600|OMIM|
+
+Basically, is the same output as the disease tibble generated by the
+*hpo_gene_search* function. The second tibble is the results for the
+genes, which is also quite similar to the gene results from the
+*hpo_general_search* function:
+
+<details>
+<summary>Code</summary>
+
+``` r
+pfic1$disease_genes |> 
+    simplermarkdown::md_table()
+```
+
+</details>
+
+    |geneSymbol|geneId|
+    |----------|------|
+    |ATP8B1    |5205  |
+
+The third tibble with the terms associated with te searched diseases is
+like this:
+
+<details>
+<summary>Code</summary>
+
+``` r
+pfic1$disease_terms[1:5,] |> 
+    simplermarkdown::md_table()
+```
+
+</details>
+
+    |catLabel                         |ontologyId|name                           |definition                                                                                                                                                                                                                                                                                                                                                   |frequency|onset|sources     |
+    |---------------------------------|----------|-------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------|-----|------------|
+    |Inheritance                      |HP:0000007|Autosomal recessive inheritance|A mode of inheritance that is observed for traits related to a gene encoded on one of the autosomes (i.e., the human chromosomes 1-22) in which a trait manifests in individuals with two pathogenic alleles, either homozygotes (two copies of the same mutant allele) or compound heterozygotes (whereby each copy of a gene has a distinct mutant allele).|         |     |PMID:9500542|
+    |Blood and blood-forming tissues  |HP:0000421|Epistaxis                      |Epistaxis, or nosebleed, refers to a hemorrhage localized in the nose.                                                                                                                                                                                                                                                                                       |17/31    |     |PMID:7912266|
+    |Metabolism/Laboratory abnormality|HP:0002908|Conjugated hyperbilirubinemia  |                                                                                                                                                                                                                                                                                                                                                             |33/33    |     |PMID:7912266|
+    |Digestive System                 |HP:0002014|Diarrhea                       |Abnormally increased frequency (usually defined as three or more) loose or watery bowel movements a day.                                                                                                                                                                                                                                                     |         |     |OMIM:211600 |
+    |Digestive System                 |HP:0002630|Fat malabsorption              |Abnormality of the absorption of fat from the gastrointestinal tract.                                                                                                                                                                                                                                                                                        |         |     |OMIM:211600 |
+
+The columns are: a category label in which the term is part of; the
+ontologyId; the name associated with the id; the definition for the
+term; frequency, i.e., how many patients are known to present that
+feature; onset; and some reference sources (PMID, OMIM, etc).  
+
+We can also search for information about a particular term with the
+function *hpo_term_search*:
+
+<details>
+<summary>Code</summary>
+
+``` r
 #Intrahepatic cholestasis with episodic jaundice: HP:0006575
 intrahepatic_jaundice = hpo_term_search("HP:0006575")
 
+intrahepatic_jaundice |> 
+  glimpse()
+```
+
+</details>
+
+    List of 4
+     $ term_details             : tibble [1 × 9] (S3: tbl_df/tbl/data.frame)
+      ..$ name       : chr "Intrahepatic cholestasis with episodic jaundice"
+      ..$ id         : chr "HP:0006575"
+      ..$ altTermIds :List of 1
+      ..$ definition : chr ""
+      ..$ comment    : chr ""
+      ..$ synonyms   :List of 1
+      ..$ isObsolete : logi FALSE
+      ..$ xrefs      :List of 1
+      ..$ pubmedXrefs:List of 1
+     $ term_relations           : tibble [1 × 3] (S3: tbl_df/tbl/data.frame)
+      ..$ parents  :List of 1
+      ..$ children :List of 1
+      ..$ termCount: int 0
+     $ term_genes_association   : tibble [2 × 3] (S3: tbl_df/tbl/data.frame)
+      ..$ geneSymbol: chr [1:2] "ASAH1" "ATP8B1"
+      ..$ dbDiseases:List of 2
+      ..$ geneId    : int [1:2] 427 5205
+     $ term_disiases_association: tibble [4 × 5] (S3: tbl_df/tbl/data.frame)
+      ..$ diseaseId  : chr [1:4] "OMIM:243300" "OMIM:211600" "ORPHA:333" "ORPHA:100085"
+      ..$ dbGenes    :List of 4
+      ..$ diseaseName: chr [1:4] "Cholestasis, benign recurrent intrahepatic 1" "Cholestasis, progressive familial intrahepatic 1" "Farber disease" "Primary hepatic neuroendocrine carcinoma"
+      ..$ dbId       : chr [1:4] "243300" "211600" "333" "100085"
+      ..$ db         : chr [1:4] "OMIM" "OMIM" "ORPHA" "ORPHA"
+
+The output produces a list with four tibbles: term details; relations,
+i.e., the parent and/or child terms associated; genes associated; and
+diseases associated. Here are an example of these results:
+
+<details>
+<summary>Code</summary>
+
+``` r
+intrahepatic_jaundice$term_details |> 
+  simplermarkdown::md_table()
+```
+
+</details>
+
+    |name                                           |id        |altTermIds|definition|comment|synonyms|isObsolete|xrefs        |pubmedXrefs|
+    |-----------------------------------------------|----------|----------|----------|-------|--------|----------|-------------|-----------|
+    |Intrahepatic cholestasis with episodic jaundice|HP:0006575|NULL      |          |       |NULL    |FALSE     |UMLS:C4025019|NULL       |
+
+<details>
+<summary>Code</summary>
+
+``` r
+intrahepatic_jaundice$term_relations |> 
+  simplermarkdown::md_table()
+```
+
+</details>
+
+    |parents                                                                                               |children|termCount|
+    |------------------------------------------------------------------------------------------------------|--------|---------|
+    |Intrahepatic cholestasis, 3222                    , 1                       , HP:0001406              |NULL    |0        |
+
+<details>
+<summary>Code</summary>
+
+``` r
+intrahepatic_jaundice$term_genes_association |> 
+  simplermarkdown::md_table()
+```
+
+</details>
+
+    |geneSymbol|dbDiseases                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |geneId|
+    |----------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------|
+    |ASAH1     |2823                                                           , OMIM:228000                                                    , Farber lipogranulomatosis                                      , 228000                                                         , OMIM                                                           , 3091                                                           , ORPHA:333                                                      , Farber disease                                                 , 333                                                            , ORPHA                                                          , 4159                                                           , ORPHA:2590                                                     , Spinal muscular atrophy-progressive myoclonic epilepsy syndrome, 2590                                                           , ORPHA                                                          , 2265                                                           , OMIM:159950                                                    , Spinal muscular atrophy with progressive myoclonic epilepsy    , 159950                                                         , OMIM                                                           | 427  |
+    |ATP8B1    |1378                                            , OMIM:147480                                     , Cholestasis, intrahepatic, of pregnancy, 1      , 147480                                          , OMIM                                            , 11091                                           , OMIM:211600                                     , Cholestasis, progressive familial intrahepatic 1, 211600                                          , OMIM                                            , 1471                                            , ORPHA:69665                                     , Intrahepatic cholestasis of pregnancy           , 69665                                           , ORPHA                                           , 1030                                            , OMIM:243300                                     , Cholestasis, benign recurrent intrahepatic 1    , 243300                                          , OMIM                                                                                                                                                                                                                                                                                                                                                        |5205  |
+
+<details>
+<summary>Code</summary>
+
+``` r
+intrahepatic_jaundice$term_genes_association |> 
+  simplermarkdown::md_table()
+```
+
+</details>
+
+    |geneSymbol|dbDiseases                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |geneId|
+    |----------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------|
+    |ASAH1     |2823                                                           , OMIM:228000                                                    , Farber lipogranulomatosis                                      , 228000                                                         , OMIM                                                           , 3091                                                           , ORPHA:333                                                      , Farber disease                                                 , 333                                                            , ORPHA                                                          , 4159                                                           , ORPHA:2590                                                     , Spinal muscular atrophy-progressive myoclonic epilepsy syndrome, 2590                                                           , ORPHA                                                          , 2265                                                           , OMIM:159950                                                    , Spinal muscular atrophy with progressive myoclonic epilepsy    , 159950                                                         , OMIM                                                           | 427  |
+    |ATP8B1    |1378                                            , OMIM:147480                                     , Cholestasis, intrahepatic, of pregnancy, 1      , 147480                                          , OMIM                                            , 11091                                           , OMIM:211600                                     , Cholestasis, progressive familial intrahepatic 1, 211600                                          , OMIM                                            , 1471                                            , ORPHA:69665                                     , Intrahepatic cholestasis of pregnancy           , 69665                                           , ORPHA                                           , 1030                                            , OMIM:243300                                     , Cholestasis, benign recurrent intrahepatic 1    , 243300                                          , OMIM                                                                                                                                                                                                                                                                                                                                                        |5205  |
+
+<details>
+<summary>Code</summary>
+
+``` r
 #Autistic behavior: HP:0000729
 #X-linked dominant inheritance: HP:0001423
 #Childhood onset: HP:0011463
