@@ -4,9 +4,11 @@ author: "Ronald Moura"
 date: "04-17-2024"
 #format: html
 format: markdown_github
-code-fold: true
 editor: visual
+code-fold: true
 eval: true
+message: false
+waring: false
 ---
 
 ## HPO: general search
@@ -129,7 +131,7 @@ hpo_gene_search = function(entrez_id) {
 
 ## HPO disease search
 
-disease_id: a single character with disease code. May be OMIM, ORHPA.
+disease_id: a single character with disease code. May be OMIM, ORPHA.
 
 ```{r}
 
@@ -355,11 +357,37 @@ hpo_medical_search = function(medical_term_id) {
 ```{r, warning=FALSE, message=FALSE}
 
 #general term: wilson disease
-query = "wilson disease"
+query = "ATP"
 max = -1
 category = NULL
 
-wilson_disease_search = hpo_general_search(query, max, category)
+atp_general_search = hpo_general_search(query, max, category)
+
+glimpse(atp_general_search)
+```
+
+The function will return a list object containing three tibbles: terms, diseases and genes. Each one of these tibbles stores information about the results among the categories. Let's inspect the results for the terms category:
+
+```{r}
+
+gt::gt(atp_general_search[["hpo_general_terms"]])
+```
+
+For the diseases category:
+
+```{r}
+
+gt::gt(atp_general_search[["hpo_general_diseases"]])
+```
+
+and for the genes:
+
+```{r}
+
+gt::gt(atp_general_search[["hpo_general_genes"]])
+```
+
+```{r}
 
 #MECP2 entrez id: 4204
 MECP2 = hpo_gene_search("4204")
