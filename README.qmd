@@ -354,6 +354,8 @@ hpo_medical_search = function(medical_term_id) {
 
 ## Testing the functions
 
+### Testing general search
+
 ```{r, warning=FALSE, message=FALSE}
 
 #general term: wilson disease
@@ -391,6 +393,8 @@ atp_general_search$hpo_general_genes[1:5,] |>
   simplermarkdown::md_table()
 ```
 
+### Testing gene search
+
 Now, we can test the gene search:
 
 ```{r}
@@ -417,6 +421,8 @@ Here, we can see the ontology ID, the name corresponding to the term and its def
 MECP2$hpo_disease[1:5,] |> 
     simplermarkdown::md_table()
 ```
+
+### Testing disease search
 
 Next one, we can search for a particular disease term and get some interesting results:
 
@@ -453,7 +459,9 @@ pfic1$disease_terms[1:5,] |>
     simplermarkdown::md_table()
 ```
 
-The columns are: a category label in which the term is part of; the ontologyId; the name associated with the id; the definition for the term; frequency, i.e., how many patients are known to present that feature; onset; and some reference sources (PMID, OMIM, etc).\
+The columns are: a category label in which the term is part of; the ontologyId; the name associated with the id; the definition for the term; frequency, i.e., how many patients are known to present that feature; onset; and some reference sources (PMID, OMIM, etc).
+
+### Testing term search
 
 We can also search for information about a particular term with the function *hpo_term_search*:
 
@@ -466,7 +474,7 @@ intrahepatic_jaundice |>
   glimpse()
 ```
 
-The output produces a list with four tibbles: term details; relations, i.e., the parent and/or child terms associated; genes associated; and diseases associated. Here are an example of these results:
+The output produces a list with four tibbles: term details; relations, i.e., the parent and/or child terms associated; genes associated; and diseases associated. Here are an example of these results for the term details:
 
 ```{r}
 
@@ -475,25 +483,34 @@ intrahepatic_jaundice$term_details |>
 
 ```
 
+Next one is for parents and children terms:
+
 ```{r}
 
 intrahepatic_jaundice$term_relations |> 
   simplermarkdown::md_table()
 ```
 
+Here, we have the diseases associated to the term:
+
 ```{r}
 
 intrahepatic_jaundice$term_genes_association |> 
   simplermarkdown::md_table()
 ```
 
+Finally, a list of genes associated with the term:
+
 ```{r}
 intrahepatic_jaundice$term_genes_association |> 
   simplermarkdown::md_table()
 ```
 
-```{r}
+### Testing intersecting terms to find diseases in common
 
+This is a very interesting and useful function in which we can provide a vector with HPO terms and get diseases that share all these terms in common. Here is an example:
+
+```{r}
 
 #Autistic behavior: HP:0000729
 #X-linked dominant inheritance: HP:0001423
@@ -501,6 +518,33 @@ intrahepatic_jaundice$term_genes_association |>
 term_ids = c("HP:0000729", "HP:0001423", "HP:0011463")
 similar_to_rett = hpo_term_intersecting(term_ids, max = 20)
 
+similar_to_rett |> 
+  glimpse()
+```
+
+The result of the function is a tibble with the diseases associated to the terms. The columns are: disease id, disease name, db ID and db name.
+
+```{r}
+
+similar_to_rett |> 
+  simplermarkdown::md_table()
+```
+
+### Testing medical terms
+
+```{r}
+
 #terms related to therapy
 medical_therapy = hpo_medical_search("therapy")
+
+medical_therapy |> 
+  glimpse()
+```
+
+The resulting tibble shows all the medical ontology ids associated to that term. The columns are: a list with each term, if there are synonymous or not and the synonymous.
+
+```{r}
+
+medical_therapy[1:5,] |> 
+  simplermarkdown::md_table()
 ```
