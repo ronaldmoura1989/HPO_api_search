@@ -363,7 +363,8 @@ category = NULL
 
 atp_general_search = hpo_general_search(query, max, category)
 
-glimpse(atp_general_search)
+atp_general_search |> 
+  glimpse()
 ```
 
 The function will return a list object containing three tibbles: terms, diseases and genes. Each one of these tibbles stores information about the results among the categories. Let's inspect the results for the terms category:
@@ -371,38 +372,37 @@ The function will return a list object containing three tibbles: terms, diseases
 ```{r}
 
 atp_general_search[["hpo_general_terms"]] |>
-  gt::gt() |>
-  gt::fmt_markdown(columns = everything()) |>
-  gt::tab_options(table.width = gt::px(400))
+  simplermarkdown::md_table()
 ```
 
-For the diseases category:
+In this table we can find the name corresponding to the term, the term id, number of children terms derived from it, the ontology id and synonymous. For the diseases category, we have the type of database associated with the disease (OMIM or ORPHA); the name of the diseases according to the db; the db reference number for the diseases and the database disease id.
 
 ```{r}
 
 atp_general_search[["hpo_general_diseases"]] |>
-  gt::gt() |>
-  gt::fmt_markdown(columns = everything()) |>
-  gt::tab_options(table.width = gt::px(400))
+  simplermarkdown::md_table()
 ```
 
-and for the genes:
+For the genes, we have only two columns: the entrez ID; and gene HGNC symbol.
 
 ```{r}
 
 atp_general_search[["hpo_general_genes"]][1:5,] |>
-  gt::gt() |>
-  gt::fmt_markdown(columns = everything()) |>
-  gt::tab_options(table.width = gt::px(400))
+  simplermarkdown::md_table()
 ```
+
+Now, we can test the gene search:
 
 ```{r}
 
 #MECP2 entrez id: 4204
 MECP2 = hpo_gene_search("4204")
 
-#PLEC entrez id: 5339
-PLEC = hpo_gene_search("5339")
+MECP2 |> 
+  glimpse()
+```
+
+```{r}
 
 #Rett syndrome: OMIM:312750
 rett_syndrome = hpo_disease_search("OMIM:312750")
