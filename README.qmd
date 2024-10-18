@@ -1,7 +1,8 @@
 ---
-title: "HPO restful API search"
-author: "Ronald Moura"
-date: "04-17-2024"
+title: "HPO programmatic searches"
+author: "Sindacato dei Bioinformatici"
+date: last-modified
+date-format: "[Last updated on:] MM-DD-YYYY"
 #format: html
 format: markdown_github
 editor: visual
@@ -10,6 +11,10 @@ eval: true
 message: false
 waring: false
 ---
+
+::: callout-important
+## On June 2024, HPO decided to close this API endpoint. Go to the RSelenium funcions to find an alternative. :)
+:::
 
 ## HPO: general search
 
@@ -547,4 +552,386 @@ The resulting tibble shows all the medical ontology ids associated to that term.
 
 medical_therapy[1:5,] |> 
   simplermarkdown::md_table()
+```
+
+## RSelenium: gene search
+
+::: callout-note
+We choose to use Firefox as engine. Therefore, you need to have this browser installed. Also, it is recommended to install [geckodriver](https://github.com/mozilla/geckodriver/releases) installed and attached to the PATH.
+:::
+
+```{r}
+
+hpo_gene = function(Gene.refGene, type_association = c("hpo", "disease")) {
+
+  require(RSelenium, quietly = TRUE, warn.conflicts = FALSE)
+  require(netstat, quietly = TRUE, warn.conflicts = FALSE) 
+  require(tidyverse, quietly = TRUE, warn.conflicts = FALSE)  
+  require(rvest, quietly = TRUE, warn.conflicts = FALSE) 
+      
+  #iniciar o servidor no firefox
+  rs_driver_object = rsDriver(browser = "firefox", 
+                              port = free_port(),
+                              verbose = FALSE, 
+                              chromever = NULL, 
+                              extraCapabilities = list(
+                                "moz:firefoxOptions" = list(
+                                  args = list('--headless')))
+                              )
+  
+  #criar um cliente
+  remDr = rs_driver_object$client
+  
+  #get entrez id from gene name
+  
+  ENTREZID = AnnotationDbi::select(org.Hs.eg.db::org.Hs.eg.db,keys = Gene.refGene ,
+                                   columns = "ENTREZID", 
+                                   keytype = "SYMBOL")
+  
+  ENTREZID = ENTREZID$ENTREZID
+  
+  #entrar no site
+  remDr$navigate(paste0("https://hpo.jax.org/browse/gene/NCBIGene:", 
+                        ENTREZID))
+  
+  Sys.sleep(5)
+  
+  #atraves no navegador, utilizar a funcao de inspecionar elemento e copiar a xpath
+  
+  
+  if(type_association == "hpo"){
+    type_association = 1
+    page_source = remDr$getPageSource()[[1]]
+    webpage = read_html(page_source)
+    
+    identifier =  webpage %>%
+      html_nodes(xpath=paste0("/html/body/app-root/mat-sidenav-container/mat-sidenav-content/div/app-gene/div/div/div[2]/div[2]/div/mat-tab-group/div/mat-tab-body[", type_association, "]/div/div[1]/div/div[2]/mat-table/mat-row/mat-cell[1]")) %>%
+      html_text2()
+    
+    name =  webpage %>%
+      html_nodes(xpath=paste0("/html/body/app-root/mat-sidenav-container/mat-sidenav-content/div/app-gene/div/div/div[2]/div[2]/div/mat-tab-group/div/mat-tab-body[", type_association, "]/div/div[1]/div/div[2]/mat-table/mat-row/mat-cell[2]")) %>%
+      html_text2()
+    
+  } else if(type_association == "disease") {
+    type_association = 2
+    
+    botao = remDr$findElement(using = "xpath", 
+                              value = paste0("/html/body/app-root/mat-sidenav-container/mat-sidenav-content/div/app-gene/div/div/div[2]/div[2]/div/mat-tab-group/mat-tab-header/div/div/div/div[", type_association, "]/div"))
+    
+    botao$getElementAttribute("class")
+    botao$clickElement()
+    
+    page_source = remDr$getPageSource()[[1]]
+    webpage = read_html(page_source)
+    
+    identifier =  webpage %>%
+      html_nodes(xpath=paste0("/html/body/app-root/mat-sidenav-container/mat-sidenav-content/div/app-gene/div/div/div[2]/div[2]/div/mat-tab-group/div/mat-tab-body[", type_association, "]/div/div[1]/div/div[2]/mat-table/mat-row/mat-cell[1]")) %>%
+      html_text2()
+    
+    name =  webpage %>%
+      html_nodes(xpath=paste0("/html/body/app-root/mat-sidenav-container/mat-sidenav-content/div/app-gene/div/div/div[2]/div[2]/div/mat-tab-group/div/mat-tab-body[", type_association, "]/div/div[1]/div/div[2]/mat-table/mat-row/mat-cell[2]")) %>%
+      html_text2()
+  } else {
+    message("invalid type of association")
+  }
+  
+  hpo_associations = data.frame(identifier,
+                                name)
+  
+  #desconect from server
+  system("taskkill /im java.exe /f")
+  
+  if(nrow(hpo_associations) == 0){
+    print(paste("The gene", Gene.refGene, "is not in the database"))
+  } else return(hpo_associations) 
+  
+
+}
+
+```
+
+## RSelenium: term search
+
+```{r}
+
+hpo_term = function(term, type_association = c("disease", "gene", 
+                                               "medical", "loinc")) {
+  
+  require(RSelenium, quietly = TRUE, warn.conflicts = FALSE)
+  require(netstat, quietly = TRUE, warn.conflicts = FALSE) 
+  require(tidyverse, quietly = TRUE, warn.conflicts = FALSE)  
+  require(rvest, quietly = TRUE, warn.conflicts = FALSE) 
+  
+  #iniciar o servidor no firefox
+  rs_driver_object = rsDriver(browser = "firefox", 
+                              port = free_port(),
+                              verbose = FALSE, 
+                              chromever = NULL, 
+                              extraCapabilities = list(
+                                "moz:firefoxOptions" = list(
+                                  args = list('--headless')))
+  )
+  
+  #criar um cliente
+  remDr = rs_driver_object$client
+  
+  #entrar no site
+  remDr$navigate(paste0("https://hpo.jax.org/browse/term/", 
+                        term))
+  
+  Sys.sleep(5)
+  
+  #atraves no navegador, utilizar a funcao de inspecionar elemento e copiar a xpath
+  
+  
+  if(type_association == "disease"){
+    type_association = 1
+    page_source = remDr$getPageSource()[[1]]
+    webpage = read_html(page_source)
+    
+    identifier =  webpage %>%
+      html_nodes(xpath=paste0("/html/body/app-root/mat-sidenav-container/mat-sidenav-content/div/app-term/div/div/div/div[2]/div/mat-tab-group/div/mat-tab-body[", type_association, "]/div/div[1]/div/div[2]/mat-table/mat-row/mat-cell[1]")) %>%
+      html_text2()
+    
+    name =  webpage %>%
+      html_nodes(xpath=paste0("/html/body/app-root/mat-sidenav-container/mat-sidenav-content/div/app-term/div/div/div/div[2]/div/mat-tab-group/div/mat-tab-body[", type_association, "]/div/div[1]/div/div[2]/mat-table/mat-row/mat-cell[2]")) %>%
+      html_text2()
+    
+  } else if(type_association == "gene") {
+    type_association = 2
+    
+    botao = remDr$findElement(using = "xpath", 
+                              value = paste0("/html/body/app-root/mat-sidenav-container/mat-sidenav-content/div/app-term/div/div/div/div[2]/div/mat-tab-group/mat-tab-header/div/div/div/div[", type_association, "]/div"))
+    
+    botao$getElementAttribute("class")
+    botao$clickElement()
+    
+    page_source = remDr$getPageSource()[[1]]
+    webpage = read_html(page_source)
+    
+    identifier =  webpage %>%
+      html_nodes(xpath=paste0("/html/body/app-root/mat-sidenav-container/mat-sidenav-content/div/app-term/div/div/div/div[2]/div/mat-tab-group/div/mat-tab-body[", type_association, "]/div/div[1]/div/div[2]/mat-table/mat-row/mat-cell[1]")) %>%
+      html_text2()
+    
+    name =  webpage %>%
+      html_nodes(xpath=paste0("/html/body/app-root/mat-sidenav-container/mat-sidenav-content/div/app-term/div/div/div/div[2]/div/mat-tab-group/div/mat-tab-body[", type_association, "]/div/div[1]/div/div[2]/mat-table/mat-row/mat-cell[2]")) %>%
+      html_text2()
+    
+  } else if(type_association == "medical") {
+    type_association = 3
+    
+    botao = remDr$findElement(using = "xpath", 
+                              value = paste0("/html/body/app-root/mat-sidenav-container/mat-sidenav-content/div/app-term/div/div/div/div[2]/div/mat-tab-group/mat-tab-header/div/div/div/div[", type_association, "]/div"))
+    
+    botao$getElementAttribute("class")
+    botao$clickElement()
+    
+    page_source = remDr$getPageSource()[[1]]
+    webpage = read_html(page_source)
+    
+    identifier =  webpage %>%
+      html_nodes(xpath=paste0("/html/body/app-root/mat-sidenav-container/mat-sidenav-content/div/app-term/div/div/div/div[2]/div/mat-tab-group/div/mat-tab-body[", type_association, "]/div/div[1]/div/div[2]/mat-table/mat-row/mat-cell[1]")) %>%
+      html_text2()
+    
+    name =  webpage %>%
+      html_nodes(xpath=paste0("/html/body/app-root/mat-sidenav-container/mat-sidenav-content/div/app-term/div/div/div/div[2]/div/mat-tab-group/div/mat-tab-body[", type_association, "]/div/div[1]/div/div[2]/mat-table/mat-row/mat-cell[2]")) %>%
+      html_text2()
+    
+  } else if(type_association == "loinc") {
+    type_association = 4
+    
+    botao = remDr$findElement(using = "xpath", 
+                              value = paste0("/html/body/app-root/mat-sidenav-container/mat-sidenav-content/div/app-term/div/div/div/div[2]/div/mat-tab-group/mat-tab-header/div/div/div/div[", type_association, "]/div"))
+    
+    botao$getElementAttribute("class")
+    botao$clickElement()
+    
+    page_source = remDr$getPageSource()[[1]]
+    webpage = read_html(page_source)
+    
+    identifier =  webpage %>%
+      html_nodes(xpath=paste0("/html/body/app-root/mat-sidenav-container/mat-sidenav-content/div/app-term/div/div/div/div[2]/div/mat-tab-group/div/mat-tab-body[", type_association, "]/div/div[1]/div/div[2]/mat-table/mat-row/mat-cell[1]")) %>%
+      html_text2()
+    
+    name =  webpage %>%
+      html_nodes(xpath=paste0("/html/body/app-root/mat-sidenav-container/mat-sidenav-content/div/app-term/div/div/div/div[2]/div/mat-tab-group/div/mat-tab-body[", type_association, "]/div/div[1]/div/div[2]/mat-table/mat-row/mat-cell[2]")) %>%
+      html_text2()
+    
+  } else {
+    message("invalid type of association")
+  }
+  
+  
+  hpo_associations = data.frame(identifier,
+                                name)
+  
+  #desconect from server
+  system("taskkill /im java.exe /f")
+  
+  if(nrow(hpo_associations) == 0){
+    print(paste("The term", term, "is not in the database"))
+  } else return(hpo_associations) 
+  
+  
+}
+
+```
+
+## RSelenium: disease search
+
+```{r}
+
+hpo_disease = function(disease, type_association = c("term", "gene", "medical")) {
+  
+  require(RSelenium, quietly = TRUE, warn.conflicts = FALSE)
+  require(netstat, quietly = TRUE, warn.conflicts = FALSE) 
+  require(tidyverse, quietly = TRUE, warn.conflicts = FALSE)  
+  require(rvest, quietly = TRUE, warn.conflicts = FALSE) 
+  
+  #iniciar o servidor no firefox
+  rs_driver_object = rsDriver(browser = "firefox", 
+                              port = free_port(),
+                              verbose = FALSE, 
+                              chromever = NULL, 
+                              extraCapabilities = list(
+                                "moz:firefoxOptions" = list(
+                                  args = list('--headless')))
+  )
+  
+  #criar um cliente
+  remDr = rs_driver_object$client
+  
+  #entrar no site
+  remDr$navigate(paste0("https://hpo.jax.org/browse/disease/", 
+                        disease))
+  
+  Sys.sleep(5)
+  
+  #atraves no navegador, utilizar a funcao de inspecionar elemento e copiar a xpath
+  
+  
+  if(type_association == "term"){
+    type_association = 1
+    page_source = remDr$getPageSource()[[1]]
+    webpage = read_html(page_source)
+    
+    number_of_terms = webpage %>%
+      html_nodes(xpath=paste0("/html/body/app-root/mat-sidenav-container/mat-sidenav-content/div/app-disease/div/div/div[2]/div/div/div/mat-tab-group/div")) %>%
+      html_text2() %>%
+      str_count("annotation")
+    
+    identifier = NULL 
+    name = NULL
+    onset = NULL 
+    frequency = NULL
+    source = NULL
+    
+    for(i in 1:number_of_terms){
+      
+      x =  webpage %>%
+        html_nodes(xpath=paste0("/html/body/app-root/mat-sidenav-container/mat-sidenav-content/div/app-disease/div/div/div[2]/div/div/div/mat-tab-group/div/mat-tab-body[", type_association, "]/div/div/div/div[", i, "]/mat-table/mat-row/mat-cell[1]")) %>%
+        html_text2() %>%
+        str_replace_all("[\r\n]" , "")
+      
+      identifier = c(identifier, x)
+      
+      x =  webpage %>%
+        html_nodes(xpath=paste0("/html/body/app-root/mat-sidenav-container/mat-sidenav-content/div/app-disease/div/div/div[2]/div/div/div/mat-tab-group/div/mat-tab-body[", type_association, "]/div/div/div/div[", i, "]/mat-table/mat-row/mat-cell[2]")) %>%  
+        html_text2() %>%
+        str_replace_all("[\r\n]" , "")
+      
+      name = c(name, x)
+      
+      x =  webpage %>%
+        html_nodes(xpath=paste0("/html/body/app-root/mat-sidenav-container/mat-sidenav-content/div/app-disease/div/div/div[2]/div/div/div/mat-tab-group/div/mat-tab-body[", type_association, "]/div/div/div/div[", i, "]/mat-table/mat-row/mat-cell[3]")) %>%
+        html_text2() %>%
+        str_replace_all("[\r\n]" , "")
+      
+      onset = c(onset, x)
+      
+      x =  webpage %>%
+        html_nodes(xpath=paste0("/html/body/app-root/mat-sidenav-container/mat-sidenav-content/div/app-disease/div/div/div[2]/div/div/div/mat-tab-group/div/mat-tab-body[", type_association, "]/div/div/div/div[", i, "]/mat-table/mat-row/mat-cell[4]")) %>%
+        html_text2() %>%
+        str_replace_all("[\r\n]" , "")
+      
+      frequency = c(frequency, x)
+      
+      x =  webpage %>%
+        html_nodes(xpath=paste0("/html/body/app-root/mat-sidenav-container/mat-sidenav-content/div/app-disease/div/div/div[2]/div/div/div/mat-tab-group/div/mat-tab-body[", type_association, "]/div/div/div/div[",i,"]/mat-table/mat-row/mat-cell[5]/div/a")) %>%
+        html_attr("href")
+      
+      source = c(source, x)
+      
+    }
+    
+  } else if(type_association == "gene") {
+    type_association = 2
+    
+    botao = remDr$findElement(using = "xpath", 
+                              value = paste0("/html/body/app-root/mat-sidenav-container/mat-sidenav-content/div/app-disease/div/div/div[2]/div/div/div/mat-tab-group/mat-tab-header/div/div/div/div[", type_association, "]/div"))
+    
+    botao$getElementAttribute("class")
+    botao$clickElement()
+    
+    page_source = remDr$getPageSource()[[1]]
+    webpage = read_html(page_source)
+    
+    identifier =  webpage %>%
+      html_nodes(xpath=paste0("/html/body/app-root/mat-sidenav-container/mat-sidenav-content/div/app-disease/div/div/div[2]/div/div/div/mat-tab-group/div/mat-tab-body[", type_association, "]/div/div[1]/div/div[2]/mat-table/mat-row/mat-cell[1]")) %>%
+      html_text2() %>%
+      str_replace_all("[\r\n]" , "")
+    
+    name =  webpage %>%
+      html_nodes(xpath=paste0("/html/body/app-root/mat-sidenav-container/mat-sidenav-content/div/app-disease/div/div/div[2]/div/div/div/mat-tab-group/div/mat-tab-body[", type_association, "]/div/div[1]/div/div[2]/mat-table/mat-row/mat-cell[2]")) %>%
+      html_text2() %>%
+      str_replace_all("[\r\n]" , "")
+    
+  } else if(type_association == "medical") {
+    type_association = 3
+    
+    botao = remDr$findElement(using = "xpath", 
+                              value = paste0("/html/body/app-root/mat-sidenav-container/mat-sidenav-content/div/app-disease/div/div/div[2]/div/div/div/mat-tab-group/mat-tab-header/div/div/div/div[", type_association, "]/div"))
+    
+    botao$getElementAttribute("class")
+    botao$clickElement()
+    
+    page_source = remDr$getPageSource()[[1]]
+    webpage = read_html(page_source)
+    
+    identifier =  webpage %>%
+      html_nodes(xpath=paste0("/html/body/app-root/mat-sidenav-container/mat-sidenav-content/div/app-disease/div/div/div[2]/div/div/div/mat-tab-group/div/mat-tab-body[", type_association, "]/div/div[1]/div/div[2]/mat-table/mat-row/mat-cell[1]")) %>%
+      html_text2() %>%
+      str_replace_all("[\r\n]" , "")
+    
+    name =  webpage %>%
+      html_nodes(xpath=paste0("/html/body/app-root/mat-sidenav-container/mat-sidenav-content/div/app-disease/div/div/div[2]/div/div/div/mat-tab-group/div/mat-tab-body[", type_association, "]/div/div[1]/div/div[2]/mat-table/mat-row/mat-cell[2]")) %>%
+      html_text2() %>%
+      str_replace_all("[\r\n]" , "")
+    
+  }  else {
+    message("invalid type of association")
+  }
+  
+  if(type_association == 1){
+    hpo_associations = data.frame(identifier,
+                                  name,
+                                  onset,
+                                  frequency,
+                                  source
+    )
+  } else  {
+    hpo_associations = data.frame(identifier,
+                                  name)
+  } 
+  
+  #desconect from server
+  system("taskkill /im java.exe /f")
+  
+  if(nrow(hpo_associations) == 0){
+    print(paste("The disease id", disease, "is not in the database"))
+  } else return(hpo_associations) 
+  
+  
+}
+
 ```
