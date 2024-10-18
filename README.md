@@ -1,11 +1,13 @@
 # HPO programmatic searches
 Sindacato dei Bioinformatici
-Last updated on: 10-18-2024
+Last updated on: 18-10-2024
 
 > **On June 2024, HPO decided to close this API endpoint. Go to the
 > RSelenium funcions to find an alternative. :)**
 
-## HPO: general search
+## 1. Building functions
+
+### HPO: general search
 
 query: is any character with identifier (HPO, OMIM, ORPHA), #an entrez
 id, or text.
@@ -80,7 +82,7 @@ hpo_general_search = function(query, max = -1, category = NULL) {
 
 </details>
 
-## HPO gene search
+### HPO gene search
 
 entrez_id: a single character variable with entrez gene id
 
@@ -132,7 +134,7 @@ hpo_gene_search = function(entrez_id) {
 
 </details>
 
-## HPO disease search
+### HPO disease search
 
 disease_id: a single character with disease code. May be OMIM, ORPHA.
 
@@ -189,7 +191,7 @@ hpo_disease_search = function(disease_id) {
 
 </details>
 
-## HPO term search
+### HPO term search
 
 term_id: a simple character with the hpo term.
 
@@ -287,7 +289,7 @@ hpo_term_search = function(term_id) {
 
 </details>
 
-## HPO diseases by intersecting terms
+### HPO diseases by intersecting terms
 
 term_ids: a vector with terms.
 
@@ -329,7 +331,7 @@ hpo_term_intersecting = function(term_ids, max = -1) {
 
 </details>
 
-## HPO Medical Action Ontology term search
+### HPO Medical Action Ontology term search
 
 medical_term_id: A character with a Medical Action Ontology identifer or
 search term, such as “therapy”.
@@ -369,9 +371,9 @@ hpo_medical_search = function(medical_term_id) {
 
 </details>
 
-## Testing the functions
+## ~~2. Testing the functions~~
 
-### Testing general search
+### ~~Testing general search~~
 
 <details class="code-fold">
 <summary>Code</summary>
@@ -435,7 +437,7 @@ atp_general_search$hpo_general_genes[1:5,] |>
 
 </details>
 
-### Testing gene search
+### ~~Testing gene search~~
 
 Now, we can test the gene search:
 
@@ -480,7 +482,7 @@ MECP2$hpo_disease[1:5,] |>
 
 </details>
 
-### Testing disease search
+### ~~Testing disease search~~
 
 Next one, we can search for a particular disease term and get some
 interesting results:
@@ -544,7 +546,7 @@ ontologyId; the name associated with the id; the definition for the
 term; frequency, i.e., how many patients are known to present that
 feature; onset; and some reference sources (PMID, OMIM, etc).
 
-### Testing term search
+### ~~Testing term search~~
 
 We can also search for information about a particular term with the
 function *hpo_term_search*:
@@ -613,7 +615,7 @@ intrahepatic_jaundice$term_genes_association |>
 
 </details>
 
-### Testing intersecting terms to find diseases in common
+### ~~Testing intersecting terms to find diseases in common~~
 
 This is a very interesting and useful function in which we can provide a
 vector with HPO terms and get diseases that share all these terms in
@@ -648,7 +650,7 @@ similar_to_rett |>
 
 </details>
 
-### Testing medical terms
+### ~~Testing medical terms~~
 
 <details class="code-fold">
 <summary>Code</summary>
@@ -677,7 +679,7 @@ medical_therapy[1:5,] |>
 
 </details>
 
-## RSelenium: gene search
+## 3. RSelenium:
 
 > **Note**
 >
@@ -685,6 +687,8 @@ medical_therapy[1:5,] |>
 > browser installed. Also, it is recommended to install
 > [geckodriver](https://github.com/mozilla/geckodriver/releases)
 > installed and attached to the PATH.
+
+### Gene search
 
 <details class="code-fold">
 <summary>Code</summary>
@@ -779,7 +783,7 @@ hpo_gene = function(Gene.refGene, type_association = c("hpo", "disease")) {
 
 </details>
 
-## RSelenium: term search
+### Term search
 
 <details class="code-fold">
 <summary>Code</summary>
@@ -909,7 +913,7 @@ hpo_term = function(term, type_association = c("disease", "gene",
 
 </details>
 
-## RSelenium: disease search
+### Disease search
 
 <details class="code-fold">
 <summary>Code</summary>
