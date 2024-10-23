@@ -13,7 +13,7 @@ waring: false
 ---
 
 ::: callout-note
-## On June 2024, HPO decided to close this API endpoint. Go to the RSelenium funcions to find an alternative. :)
+On June 2024, HPO decided to close this API endpoint. Go to the RSelenium functions (topic 3) to find an alternative. :)
 :::
 
 ## 1. Building functions
@@ -577,11 +577,226 @@ medical_therapy[1:5,] |>
   simplermarkdown::md_table()
 ```
 
-## 3. RSelenium: 
+## 3. RSelenium:
 
 ::: callout-note
-We choose to use Firefox as engine. Therefore, you need to have this browser installed. Also, it is recommended to install [geckodriver](https://github.com/mozilla/geckodriver/releases) installed and attached to the PATH.
+We choose to use Firefox as engine. Therefore, you need to have this browser installed. Also, it is recommended to install [geckodriver](https://github.com/mozilla/geckodriver/releases) and attach it to the PATH.
 :::
+
+## Basic Search
+
+```{r}
+
+hpo_search = function(keyword, type_association = c("hpo", "disease", "gene")) {
+  
+  require(RSelenium, quietly = TRUE, warn.conflicts = FALSE)
+  require(netstat, quietly = TRUE, warn.conflicts = FALSE) 
+  require(tidyverse, quietly = TRUE, warn.conflicts = FALSE)  
+  require(rvest, quietly = TRUE, warn.conflicts = FALSE) 
+  
+  #iniciar o servidor no firefox
+  rs_driver_object = rsDriver(browser = "firefox", 
+                              port = free_port(),
+                              verbose = FALSE, 
+                              chromever = NULL, 
+                              extraCapabilities = list(
+                                "moz:firefoxOptions" = list(
+                                  args = list('--headless')))
+  )
+  
+  #criar um cliente
+  remDr = rs_driver_object$client
+  
+  #change space to "%20"
+  keyword = gsub(" ", "%20", keyword)
+  
+  #entrar no site
+  remDr$navigate(paste0("https://hpo.jax.org/browse/search?q=", 
+                        keyword, 
+                        "&navFilter=all"))
+  
+  Sys.sleep(3)
+  
+  #atraves no navegador, utilizar a funcao de inspecionar elemento e copiar a xpath
+  
+  
+  if(type_association == "hpo"){
+    
+    type_association = 1
+    
+    botao = remDr$findElement(using = "xpath", 
+                              value = paste0("/html/body/app-root/mat-sidenav-container/mat-sidenav-content/div/app-search-results/div/div/div/div/div/mat-tab-group/mat-tab-header/div/div/div/div[", type_association, "]/div"))
+    
+    botao$getElementAttribute("class")
+    botao$clickElement()
+    
+    
+    #create null object
+    hpo_associations = data.frame(identifier = character(),
+                                  name = character(),
+                                  matching = character(), 
+                                  synonym = character())    
+    
+    #initiate while loop
+    cond = TRUE
+    
+    while (cond == TRUE) {
+      
+      page_source = remDr$getPageSource()[[1]]
+      webpage = read_html(page_source)
+      
+      identifier =  webpage %>%
+        html_nodes(xpath=paste0("/html/body/app-root/mat-sidenav-container/mat-sidenav-content/div/app-search-results/div/div/div/div/div/mat-tab-group/div/mat-tab-body[", type_association, "]/div/div[1]/div/mat-table/mat-row/mat-cell[1]")) %>%
+        html_text2()
+      
+      name =  webpage %>%
+        html_nodes(xpath=paste0("/html/body/app-root/mat-sidenav-container/mat-sidenav-content/div/app-search-results/div/div/div/div/div/mat-tab-group/div/mat-tab-body[", type_association, "]/div/div[1]/div/mat-table/mat-row/mat-cell[2]")) %>%
+        html_text2()
+      
+      matching =  webpage %>%
+        html_nodes(xpath=paste0("/html/body/app-root/mat-sidenav-container/mat-sidenav-content/div/app-search-results/div/div/div/div/div/mat-tab-group/div/mat-tab-body[", type_association, "]/div/div[1]/div/mat-table/mat-row/mat-cell[3]")) %>%
+        html_text2()
+      
+      synonym =  webpage %>%
+        html_nodes(xpath=paste0("/html/body/app-root/mat-sidenav-container/mat-sidenav-content/div/app-search-results/div/div/div/div/div/mat-tab-group/div/mat-tab-body[", type_association, "]/div/div[1]/div/mat-table/mat-row/mat-cell[4]")) %>%
+        html_text2()
+    
+      df = data.frame(identifier,
+                      name,
+                      matching,
+                      synonym)
+      
+      if(df %>% anti_join(., hpo_associations) %>% nrow() > 0){
+        hpo_associations = bind_rows(hpo_associations, df)
+        
+        next_button = remDr$findElement(using = 'css selector', 
+                                        value = 'button.mat-tooltip-trigger:nth-child(3) > span:nth-child(1) > svg:nth-child(1)')
+        next_button$clickElement()
+        
+        } else {
+          cond = FALSE}
+    
+    }
+     
+    return(hpo_associations)
+    
+  } else if(type_association == "disease") {
+    
+    type_association = 2
+    
+    botao = remDr$findElement(using = "xpath", 
+                              value = paste0("/html/body/app-root/mat-sidenav-container/mat-sidenav-content/div/app-search-results/div/div/div/div/div/mat-tab-group/mat-tab-header/div/div/div/div[", type_association, "]/div"))
+    
+    botao$getElementAttribute("class")
+    botao$clickElement()
+    
+    page_source = remDr$getPageSource()[[1]]
+    webpage = read_html(page_source)
+    
+    #create null object
+    hpo_associations = data.frame(identifier = character(),
+                                  name = character(),
+                                  matching = character())
+    
+    #initiate while loop
+    cond = TRUE
+    
+    while (cond == TRUE) {
+    
+      identifier =  webpage %>%
+        html_nodes(xpath=paste0("/html/body/app-root/mat-sidenav-container/mat-sidenav-content/div/app-search-results/div/div/div/div/div/mat-tab-group/div/mat-tab-body[", type_association, "]/div/div[1]/div/mat-table/mat-row/mat-cell[1]")) %>%
+        html_text2()
+      
+      name =  webpage %>%
+        html_nodes(xpath=paste0("/html/body/app-root/mat-sidenav-container/mat-sidenav-content/div/app-search-results/div/div/div/div/div/mat-tab-group/div/mat-tab-body[", type_association, "]/div/div[1]/div/mat-table/mat-row/mat-cell[2]")) %>%
+        html_text2()
+      
+      matching =  webpage %>%
+        html_nodes(xpath=paste0("/html/body/app-root/mat-sidenav-container/mat-sidenav-content/div/app-search-results/div/div/div/div/div/mat-tab-group/div/mat-tab-body[", type_association, "]/div/div[1]/div/mat-table/mat-row/mat-cell[3]")) %>%
+        html_text2()
+      
+      df = data.frame(identifier,
+                      name,
+                      matching)
+      
+      
+      if(df %>% anti_join(., hpo_associations) %>% nrow() > 0){
+        hpo_associations = bind_rows(hpo_associations, df)
+        
+        next_button = remDr$findElement(using = 'css selector', 
+                                        value = 'button.mat-tooltip-trigger:nth-child(3) > span:nth-child(1) > svg:nth-child(1)')
+        next_button$clickElement()
+        
+      } else {
+        cond = FALSE}
+      
+    }
+    
+    return(hpo_associations)
+    
+  } else if(type_association == "gene"){
+      
+      type_association = 3
+      
+      botao = remDr$findElement(using = "xpath", 
+                                value = paste0("/html/body/app-root/mat-sidenav-container/mat-sidenav-content/div/app-search-results/div/div/div/div/div/mat-tab-group/mat-tab-header/div/div/div/div[", type_association, "]/div"))
+      
+      botao$getElementAttribute("class")
+      botao$clickElement()
+      
+      page_source = remDr$getPageSource()[[1]]
+      webpage = read_html(page_source)
+      
+      #create null object
+      hpo_associations = data.frame(identifier = character(),
+                                    name = character(),
+                                    matching = character())
+      
+      #initiate while loop
+      cond = TRUE
+      
+      while (cond == TRUE) {
+        
+        identifier =  webpage %>%
+          html_nodes(xpath=paste0("/html/body/app-root/mat-sidenav-container/mat-sidenav-content/div/app-search-results/div/div/div/div/div/mat-tab-group/div/mat-tab-body[", type_association, "]/div/div[1]/div/mat-table/mat-row/mat-cell[1]")) %>%
+          html_text2()
+        
+        name =  webpage %>%
+          html_nodes(xpath=paste0("/html/body/app-root/mat-sidenav-container/mat-sidenav-content/div/app-search-results/div/div/div/div/div/mat-tab-group/div/mat-tab-body[", type_association, "]/div/div[1]/div/mat-table/mat-row/mat-cell[2]")) %>%
+          html_text2()
+        
+        matching =  webpage %>%
+          html_nodes(xpath=paste0("/html/body/app-root/mat-sidenav-container/mat-sidenav-content/div/app-search-results/div/div/div/div/div/mat-tab-group/div/mat-tab-body[", type_association, "]/div/div[1]/div/mat-table/mat-row/mat-cell[3]")) %>%
+          html_text2()
+        
+        df = data.frame(identifier,
+                        name,
+                        matching)
+        
+        
+        if(df %>% anti_join(., hpo_associations) %>% nrow() > 0){
+          hpo_associations = bind_rows(hpo_associations, df)
+          
+          next_button = remDr$findElement(using = 'css selector', 
+                                          value = 'button.mat-tooltip-trigger:nth-child(3) > span:nth-child(1) > svg:nth-child(1)')
+          next_button$clickElement()
+          
+        } else {
+          cond = FALSE}
+        
+      }
+      
+      return(hpo_associations)
+      
+    } else {
+      message("invalid type of association")
+    }
+  
+  #desconect from server
+  system("taskkill /im java.exe /f")
+}
+
+```
 
 ### Gene search
 
